@@ -1,12 +1,13 @@
 import * as React from "react";
 import { DropdownMenu } from "radix-ui";
+import {useState} from 'react';
 import {
   HamburgerMenuIcon,
   CheckIcon,
 } from "@radix-ui/react-icons";
 
 const CalculatorDropdown = () => {
-  const [selectedCalculator, setSelectedCalculator] = React.useState("Number Theory");
+  const [selectedCalculator, setSelectedCalculator] = useState("Number Theory");
 
   const handleCalculatorChange = (calculator) => {
     setSelectedCalculator(calculator);
