@@ -5,6 +5,8 @@ import Home from "./pages/Home";
 import GraphEditor from "./pages/GraphEditor";
 import Calculator from "./pages/Calculator";
 import Documentation from "./pages/Documentation";
+import Login from "./pages/Login";
+import Register from "./pages/Register";
 
 export const DarkModeContext = createContext();
 
@@ -17,6 +19,8 @@ export default function App() {
         <Router>
           <Header />
           <Routes>
+            <Route path="/login" element={<Login/>} />
+            <Route path="/register" element={<Register/>} />
             <Route path="/" element={<Home />} />
             <Route path="/graph-editor" element={<GraphEditor />} />
             <Route path="/calculator" element={<Calculator />} />
