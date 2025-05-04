@@ -17,16 +17,29 @@ export default function Login() {
     }
   }, [navigate]);
 
-  const handleSubmit = (e) => {
+  async function handleSubmit(e) {
     e.preventDefault();
-    // TODO: Replace with real authentication
-    if (email === "user@example.com" && password === "password123") {
+    console.log(email, password);
+    const response = await fetch("http://localhost:5000/api/users/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ email, password }),
+      credentials: "include",
+    });
+    if(response.ok) {
+      const data = await response.json();
       localStorage.setItem("isLoggedIn", "true");
+      localStorage.setItem("token", data.token);
+      localStorage.setItem("user", JSON.stringify(data.user));
       navigate("/");
-    } else {
-      setError("Invalid email or password");
     }
-  };
+    else {
+      const errorData = await response.json();
+      setError(errorData.message || "Login failed. Please try again.");
+    }
+  }
 
   return (
     <div className={`flex justify-center items-center min-h-screen p-4 transition-colors ${
