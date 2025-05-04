@@ -12,10 +12,18 @@ import calcDefs from "../assets/calculators.json";
 
 export default function CalculatorDropdown() {
   const { darkMode } = useContext(DarkModeContext);
-  const calculators = calcDefs.calculators || {};
-  const keys = Object.keys(calculators);
-  const [selected, setSelected] = useState(keys[0] || "");
+  const categories = Object.keys(calcDefs.calculators || {});
 
+  // Two-level selection: category and function
+  const [selectedCategory, setSelectedCategory] = useState(categories[0] || "");
+  const functions = selectedCategory
+    ? Object.keys(calcDefs.calculators[selectedCategory])
+    : [];
+  const [selectedFunction, setSelectedFunction] = useState(
+    functions[0] || ""
+  );
+
+  // theme classes
   const bg = darkMode ? "bg-gray-800" : "bg-white";
   const text = darkMode ? "text-white" : "text-gray-900";
   const border = darkMode ? "border-gray-700" : "border-gray-200";
@@ -23,7 +31,9 @@ export default function CalculatorDropdown() {
 
   return (
     <div className="w-full max-w-md mx-auto mt-8">
-      <div className={`flex justify-between items-center ${bg} ${text} p-4 rounded-xl shadow-lg border ${border} transition-colors`}>        
+      <div
+        className={`flex items-center justify-between ${bg} ${text} p-4 rounded-xl shadow-lg border ${border} transition-colors`}
+      >
         <DropdownMenu.Root>
           <DropdownMenu.Trigger asChild>
             <button
@@ -31,38 +41,77 @@ export default function CalculatorDropdown() {
             >
               <div className="flex items-center gap-2">
                 <HamburgerMenuIcon className="w-5 h-5" />
-                <span className="capitalize">{selected.replace(/-/g, ' ')}</span>
+                <span className="capitalize">
+                  {selectedCategory.replace(/-/g, " ")}
+                </span>
+                <ChevronDownIcon className="w-4 h-4" />
               </div>
-              <ChevronDownIcon className="w-4 h-4" />
             </button>
           </DropdownMenu.Trigger>
-
           <DropdownMenu.Portal>
             <DropdownMenu.Content
               className={`mt-2 w-full rounded-lg border ${border} ${bg} shadow-lg py-2`}
               sideOffset={8}
               align="start"
             >
-              {keys.map((key) => (
-                <DropdownMenu.Item
-                  key={key}
-                  className={`flex items-center justify-between px-4 py-2 cursor-pointer transition ${hoverBg} ${text} capitalized ${selected === key ? 'font-bold' : 'font-medium'}`}
-                  onSelect={() => setSelected(key)}
-                >
-                  <span>{key.replace(/-/g, ' ')}</span>
-                  {selected === key && <CheckIcon className="w-5 h-5 text-green-500" />}
-                </DropdownMenu.Item>
+              {/* Categories */}
+              {categories.map((cat) => (
+                <DropdownMenu.Sub key={cat}>
+                  <DropdownMenu.SubTrigger
+                    className={`flex items-center justify-between px-4 py-2 cursor-pointer transition ${hoverBg} ${text} capitalize ${
+                      selectedCategory === cat ? "font-bold" : "font-medium"
+                    }`}
+                  >
+                    {cat.replace(/-/g, " ")}
+                    <ChevronDownIcon className="w-4 h-4" />
+                  </DropdownMenu.SubTrigger>
+                  <DropdownMenu.Portal>
+                    <DropdownMenu.SubContent
+                      className={`ml-4 mt-1 w-60 rounded-lg border ${border} ${bg} shadow-lg py-2`}
+                      sideOffset={4}
+                      align="start"
+                    >
+                      {/* Functions */}
+                      {Object.keys(calcDefs.calculators[cat]).map((fnKey) => (
+                        <DropdownMenu.Item
+                          key={fnKey}
+                          className={`flex items-center justify-between px-4 py-2 cursor-pointer transition ${hoverBg} ${text} capitalize ${
+                            selectedFunction === fnKey && selectedCategory === cat
+                              ? "font-bold"
+                              : "font-medium"
+                          }`}
+                          onSelect={() => {
+                            setSelectedCategory(cat);
+                            setSelectedFunction(fnKey);
+                          }}
+                        >
+                          {fnKey.replace(/-/g, " ")}
+                          {selectedFunction === fnKey && selectedCategory === cat && (
+                            <CheckIcon className="w-5 h-5 text-green-500" />
+                          )}
+                        </DropdownMenu.Item>
+                      ))}
+                    </DropdownMenu.SubContent>
+                  </DropdownMenu.Portal>
+                </DropdownMenu.Sub>
               ))}
             </DropdownMenu.Content>
           </DropdownMenu.Portal>
         </DropdownMenu.Root>
       </div>
 
-      <div className={`${bg} ${text} p-6 mt-6 rounded-xl shadow-lg border ${border} transition-colors`}>        
-        {selected ? (
-          <CalculatorRenderer categoryKey={selected} />
+      <div
+        className={`${bg} ${text} p-6 mt-6 rounded-xl shadow-lg border ${border} transition-colors`}
+      >
+        {selectedFunction ? (
+          <CalculatorRenderer
+            categoryKey={selectedCategory}
+            functionKey={selectedFunction}
+          />
         ) : (
-          <p className="text-center text-sm text-gray-500">No calculators found.</p>
+          <p className="text-center text-sm text-gray-500">
+            Please select a calculator.
+          </p>
         )}
       </div>
     </div>

@@ -1,462 +1,270 @@
-{
-    "calculators": {
-      "number-theory": {
-        "isPrime": {
-          "description": "Check if a number is prime",
-          "inputs": [
-            {
-              "name": "n",
-              "type": "number",
-              "description": "Number to check"
-            }
-          ],
-          "output": {
-            "type": "boolean",
-            "description": "True if n is prime, false otherwise"
-          }
-        },
-        "firstPrimeBefore": {
-          "description": "Find the first prime number before a given number",
-          "inputs": [
-            {
-              "name": "n",
-              "type": "number",
-              "description": "Number to check"
-            }
-          ],
-          "output": {
-            "type": "number",
-            "description": "The first prime number before n"
-          }
-        },
-        "firstPrimeAfter": {
-          "description": "Find the first prime number after a given number",
-          "inputs": [
-            {
-              "name": "n",
-              "type": "number",
-              "description": "Number to check"
-            }
-          ],
-          "output": {
-            "type": "number",
-            "description": "The first prime number after n"
-          }
-        },
-        "Primes Between": {
-          "description": "Find all prime numbers between two given numbers",
-          "inputs": [
-            {
-              "name": "a",
-              "type": "number",
-              "description": "First number"
-            },
-            {
-              "name": "b",
-              "type": "number",
-              "description": "Second number"
-            }
-          ],
-          "output": {
-            "type": "array",
-            "description": "Array of prime numbers between a and b"
-          }
-        },
-        "nos of Primes Between": {
-          "description": "Find the number of prime numbers between two given numbers",
-          "inputs": [
-            {
-              "name": "a",
-              "type": "number",
-              "description": "First number"
-            },
-            {
-              "name": "b",
-              "type": "number",
-              "description": "Second number"
-            }
-          ],
-          "output": {
-            "type": "number",
-            "description": "Number of prime numbers between a and b"
-          }
-        },
-        "Prime Factorization": {
-          "description": "Find the prime factorization of a number",
-          "inputs": [
-            {
-              "name": "n",
-              "type": "number",
-              "description": "Number to factorize"
-            }
-          ],
-          "output": {
-            "type": "array",
-            "description": "Array of prime factors of n"
-          }
-        },
-        "Divisors": {
-          "description": "Find all divisors of a number",
-          "inputs": [
-            {
-              "name": "n",
-              "type": "number",
-              "description": "Number to find divisors of"
-            }
-          ],
-          "output": {
-            "type": "array",
-            "description": "Array of divisors of n"
-          }
-        },
-        "Number of Divisors": {
-          "description": "Find the number of divisors of a number",
-          "inputs": [
-            {
-              "name": "n",
-              "type": "number",
-              "description": "Number to find divisors of"
-            }
-          ],
-          "output": {
-            "type": "number",
-            "description": "Number of divisors of n"
-          }
-        },
-        "GCD": {
-          "description": "Find the greatest common divisor of two numbers",
-          "inputs": [
-            {
-              "name": "a",
-              "type": "number",
-              "description": "First number"
-            },
-            {
-              "name": "b",
-              "type": "number",
-              "description": "Second number"
-            }
-          ],
-          "output": {
-            "type": "number",
-            "description": "GCD of a and b"
-          }
-        },
-        "LCM": {
-          "description": "Find the least common multiple of two numbers",
-          "inputs": [
-            {
-              "name": "a",
-              "type": "number",
-              "description": "First number"
-            },
-            {
-              "name": "b",
-              "type": "number",
-              "description": "Second number"
-            }
-          ],
-          "output": {
-            "type": "number",
-            "description": "LCM of a and b"
-          }
-        },
-        "isPerfectSquare": {
-          "description": "Check if a number is a perfect square",
-          "inputs": [
-            {
-              "name": "n",
-              "type": "number",
-              "description": "Number to check"
-            }
-          ],
-          "output": {
-            "type": "boolean",
-            "description": "True if n is a perfect square, false otherwise"
-          }
-        },
-        "Sqrt": {
-          "description": "Find the square root of a number",
-          "inputs": [
-            {
-              "name": "n",
-              "type": "number",
-              "description": "Number to find square root of"
-            }
-          ],
-          "output": {
-            "type": "number",
-            "description": "Square root of n"
-          }
-        },
-        "Euler Phi": {
-          "description": "Find the Euler's Totient function of a number",
-          "inputs": [
-            {
-              "name": "n",
-              "type": "number",
-              "description": "Number to find Euler's Totient function of"
-            }
-          ],
-          "output": {
-            "type": "number",
-            "description": "Euler's Totient function of n"
-          }
-        }
+{"calculators": {
+  "number-theory": {
+    "isPrime": {
+      "inputs": [
+        { "name": "n", "type": "number", "description": "Number to check" }
+      ],
+      "output": {
+        "type": "boolean",
+        "description": "True if n is prime, false otherwise"
       },
-      "combinatorics": {
-        "factorial": {
-          "description": "Find the factorial of a number",
-          "inputs": [
-            {
-              "name": "n",
-              "type": "number",
-              "description": "Number to find factorial of"
-            },
-            {
-              "name": "MOD",
-              "type": "number",
-              "description": "Optional modulus value (≥2, default is no modulus)",
-              "optional": true
-            }
-          ],
-          "output": {
-            "type": "number",
-            "description": "Factorial of n (mod MOD if provided)"
-          }
-        },
-        "power": {
-          "description": "Find the power of a number",
-          "inputs": [
-            {
-              "name": "a",
-              "type": "number",
-              "description": "Base"
-            },
-            {
-              "name": "b",
-              "type": "number",
-              "description": "Exponent"
-            },
-            {
-              "name": "MOD",
-              "type": "number",
-              "description": "Optional modulus value (≥2, default is no modulus)",
-              "optional": true
-            }
-          ],
-          "output": {
-            "type": "number",
-            "description": "a raised to the power b (mod MOD if provided)"
-          }
-        },
-        "nCk": {
-          "description": "Find the number of ways to choose k items from n items",
-          "inputs": [
-            {
-              "name": "n",
-              "type": "number",
-              "description": "Total number of items"
-            },
-            {
-              "name": "k",
-              "type": "number",
-              "description": "Number of items to choose"
-            },
-            {
-              "name": "MOD",
-              "type": "number",
-              "description": "Optional modulus value (≥2, default is no modulus)",
-              "optional": true
-            }
-          ],
-          "output": {
-            "type": "number",
-            "description": "Number of ways to choose k items from n items (mod MOD if provided)"
-          }
-        },
-        "nPk": {
-          "description": "Find the number of ways to choose k items from n items with order",
-          "inputs": [
-            {
-              "name": "n",
-              "type": "number",
-              "description": "Total number of items"
-            },
-            {
-              "name": "k",
-              "type": "number",
-              "description": "Number of items to choose"
-            },
-            {
-              "name": "MOD",
-              "type": "number",
-              "description": "Optional modulus value (≥2, default is no modulus)",
-              "optional": true
-            }
-          ],
-          "output": {
-            "type": "number",
-            "description": "Number of ways to choose k items from n items with order (mod MOD if provided)"
-          }
-        },
-        "inverse modulo": {
-          "description": "Find the inverse modulo of a number",
-          "inputs": [
-            {
-              "name": "a",
-              "type": "number",
-              "description": "Number to find inverse modulo of"
-            },
-            {
-              "name": "m",
-              "type": "number",
-              "description": "Modulus"
-            }
-          ],
-          "output": {
-            "type": "number",
-            "description": "Inverse modulo of a with respect to m"
-          }
-        },
-        "stars and bar": {
-          "description": "Find the number of ways to distribute n identical items into k distinct boxes",
-          "inputs": [
-            {
-              "name": "n",
-              "type": "number",
-              "description": "Total number of items"
-            },
-            {
-              "name": "k",
-              "type": "number",
-              "description": "Number of boxes"
-            },
-            {
-              "name": "MOD",
-              "type": "number",
-              "description": "Optional modulus value (≥2, default is no modulus)",
-              "optional": true
-            }
-          ],
-          "output": {
-            "type": "number",
-            "description": "Number of ways to distribute n identical items into k distinct boxes (mod MOD if provided)"
-          }
-        }
+      "logicFn": "isPrime"
+    },
+    "firstPrimeBefore": {
+      "inputs": [
+        { "name": "n", "type": "number", "description": "Number to check" }
+      ],
+      "output": {
+        "type": "number",
+        "description": "The first prime number before n"
       },
-  
-      "binary ops": {
-          "binary representation" : {
-              "description": "Find the binary representation of a number",
-              "inputs": [
-                  {
-                      "name": "n",
-                      "type": "number",
-                      "description": "Number to find binary representation of"
-                  }
-              ],
-              "output": {
-                  "type": "string",
-                  "description": "Binary representation of n"
-              }
-          },
-          "bitwise count" : {
-              "description": "Find the number of set bits in the binary representation of a number",
-              "inputs": [
-                  {
-                      "name": "n",
-                      "type": "number",
-                      "description": "Number to find set bits of"
-                  }
-              ],
-              "output": {
-                  "type": "number",
-                  "description": "Number of set bits in the binary representation of n"
-              }
-          },
-          "bitwise and" : {
-              "description": "Find the bitwise AND of two numbers",
-              "inputs": [
-                  {
-                      "name": "a",
-                      "type": "number",
-                      "description": "First number"
-                  },
-                  {
-                      "name": "b",
-                      "type": "number",
-                      "description": "Second number"
-                  }
-              ],
-              "output": {
-                  "type": "number",
-                  "description": "Bitwise AND of a and b"
-              }
-          },
-          "bitwise or" : {
-              "description": "Find the bitwise OR of two numbers",
-              "inputs": [
-                  {
-                      "name": "a",
-                      "type": "number",
-                      "description": "First number"
-                  },
-                  {
-                      "name": "b",
-                      "type": "number",
-                      "description": "Second number"
-                  }
-              ],
-              "output": {
-                  "type": "number",
-                  "description": "Bitwise OR of a and b"
-              }
-          },
-          "bitwise xor" : {
-              "description": "Find the bitwise XOR of two numbers",
-              "inputs": [
-                  {
-                      "name": "a",
-                      "type": "number",
-                      "description": "First number"
-                  },
-                  {
-                      "name": "b",
-                      "type": "number",
-                      "description": "Second number"
-                  }
-              ],
-              "output": {
-                  "type": "number",
-                  "description": "Bitwise XOR of a and b"
-              }
-          },
-          "base representation" : {
-              "description": "Convert a number from one base to another",
-              "inputs": [
-                  {
-                      "name": "n",
-                      "type": "number",
-                      "description": "Number to convert"
-                  },
-                  {
-                      "name": "from",
-                      "type": "number",
-                      "description": "Base of n"
-                  },
-                  {
-                      "name": "to",
-                      "type": "number",
-                      "description": "Base to convert n to"
-                  }
-              ],
-              "output": {
-                  "type": "string",
-                  "description": "Number n in base to"
-              }
-          }
-      }
+      "logicFn": "firstPrimeBefore"
+    },
+    "firstPrimeAfter": {
+      "inputs": [
+        { "name": "n", "type": "number", "description": "Number to check" }
+      ],
+      "output": {
+        "type": "number",
+        "description": "The first prime number after n"
+      },
+      "logicFn": "firstPrimeAfter"
+    },
+    "Primes Between": {
+      "inputs": [
+        { "name": "a", "type": "number", "description": "First number" },
+        { "name": "b", "type": "number", "description": "Second number" }
+      ],
+      "output": {
+        "type": "array",
+        "description": "Array of prime numbers between a and b"
+      },
+      "logicFn": "primesBetween"
+    },
+    "nos of Primes Between": {
+      "inputs": [
+        { "name": "a", "type": "number", "description": "First number" },
+        { "name": "b", "type": "number", "description": "Second number" }
+      ],
+      "output": {
+        "type": "number",
+        "description": "Number of prime numbers between a and b"
+      },
+      "logicFn": "countPrimesBetween"
+    },
+    "Prime Factorization": {
+      "inputs": [
+        { "name": "n", "type": "number", "description": "Number to factorize" }
+      ],
+      "output": {
+        "type": "array",
+        "description": "Array of prime factors of n"
+      },
+      "logicFn": "primeFactorization"
+    },
+    "Divisors": {
+      "inputs": [
+        { "name": "n", "type": "number", "description": "Number to find divisors of" }
+      ],
+      "output": {
+        "type": "array",
+        "description": "Array of divisors of n"
+      },
+      "logicFn": "getDivisors"
+    },
+    "Number of Divisors": {
+      "inputs": [
+        { "name": "n", "type": "number", "description": "Number to find divisors of" }
+      ],
+      "output": {
+        "type": "number",
+        "description": "Number of divisors of n"
+      },
+      "logicFn": "countDivisors"
+    },
+    "GCD": {
+      "inputs": [
+        { "name": "a", "type": "number", "description": "First number" },
+        { "name": "b", "type": "number", "description": "Second number" }
+      ],
+      "output": {
+        "type": "number",
+        "description": "GCD of a and b"
+      },
+      "logicFn": "gcd"
+    },
+    "LCM": {
+      "inputs": [
+        { "name": "a", "type": "number", "description": "First number" },
+        { "name": "b", "type": "number", "description": "Second number" }
+      ],
+      "output": {
+        "type": "number",
+        "description": "LCM of a and b"
+      },
+      "logicFn": "lcm"
+    },
+    "isPerfectSquare": {
+      "inputs": [
+        { "name": "n", "type": "number", "description": "Number to check" }
+      ],
+      "output": {
+        "type": "boolean",
+        "description": "True if n is a perfect square, false otherwise"
+      },
+      "logicFn": "isPerfectSquare"
+    },
+    "Sqrt": {
+      "inputs": [
+        { "name": "n", "type": "number", "description": "Number to find square root of" }
+      ],
+      "output": {
+        "type": "number",
+        "description": "Square root of n"
+      },
+      "logicFn": "squareRoot"
+    },
+    "Euler Phi": {
+      "inputs": [
+        { "name": "n", "type": "number", "description": "Number to find Euler's Totient function of" }
+      ],
+      "output": {
+        "type": "number",
+        "description": "Euler's Totient function of n"
+      },
+      "logicFn": "eulerPhi"
     }
-  }
-  
+  },
+  "combinatorics": {
+        "nCr": {
+          "inputs": [
+            { "name": "n", "type": "number", "description": "Total number of items" },
+            { "name": "r", "type": "number", "description": "Items to choose" }
+          ],
+          "output": {
+            "type": "number",
+            "description": "n choose r (number of combinations)"
+          },
+          "logicFn": "nCr"
+        },
+        "nPr": {
+          "inputs": [
+            { "name": "n", "type": "number", "description": "Total number of items" },
+            { "name": "r", "type": "number", "description": "Items to arrange" }
+          ],
+          "output": {
+            "type": "number",
+            "description": "n permute r (number of permutations)"
+          },
+          "logicFn": "nPr"
+        },
+        "factorial": {
+          "inputs": [
+            { "name": "n", "type": "number", "description": "Number to compute factorial of" }
+          ],
+          "output": {
+            "type": "number",
+            "description": "Factorial of n"
+          },
+          "logicFn": "factorial"
+        },
+        "Catalan": {
+          "inputs": [
+            { "name": "n", "type": "number", "description": "Index of Catalan number" }
+          ],
+          "output": {
+            "type": "number",
+            "description": "The n-th Catalan number"
+          },
+          "logicFn": "catalanNumber"
+        },
+        "Stirling Second Kind": {
+          "inputs": [
+            { "name": "n", "type": "number", "description": "Total elements" },
+            { "name": "k", "type": "number", "description": "Number of non-empty subsets" }
+          ],
+          "output": {
+            "type": "number",
+            "description": "Stirling number of the second kind S(n, k)"
+          },
+          "logicFn": "stirlingSecondKind"
+        },
+        "Bell Number": {
+          "inputs": [
+            { "name": "n", "type": "number", "description": "Number of elements" }
+          ],
+          "output": {
+            "type": "number",
+            "description": "Bell number B(n)"
+          },
+          "logicFn": "bellNumber"
+        }
+      },
+    "binary-ops": {
+        "Binary to Decimal": {
+          "inputs": [
+            { "name": "binary", "type": "string", "description": "Binary string" }
+          ],
+          "output": {
+            "type": "number",
+            "description": "Decimal value of binary string"
+          },
+          "logicFn": "binaryToDecimal"
+        },
+        "Decimal to Binary": {
+          "inputs": [
+            { "name": "decimal", "type": "number", "description": "Decimal number" }
+          ],
+          "output": {
+            "type": "string",
+            "description": "Binary representation of decimal number"
+          },
+          "logicFn": "decimalToBinary"
+        },
+        "Binary Addition": {
+          "inputs": [
+            { "name": "a", "type": "string", "description": "First binary number" },
+            { "name": "b", "type": "string", "description": "Second binary number" }
+          ],
+          "output": {
+            "type": "string",
+            "description": "Binary result of a + b"
+          },
+          "logicFn": "binaryAddition"
+        },
+        "Binary Subtraction": {
+          "inputs": [
+            { "name": "a", "type": "string", "description": "First binary number" },
+            { "name": "b", "type": "string", "description": "Second binary number" }
+          ],
+          "output": {
+            "type": "string",
+            "description": "Binary result of a - b"
+          },
+          "logicFn": "binarySubtraction"
+        },
+        "Binary Multiplication": {
+          "inputs": [
+            { "name": "a", "type": "string", "description": "First binary number" },
+            { "name": "b", "type": "string", "description": "Second binary number" }
+          ],
+          "output": {
+            "type": "string",
+            "description": "Binary result of a * b"
+          },
+          "logicFn": "binaryMultiplication"
+        },
+        "Binary Division": {
+          "inputs": [
+            { "name": "a", "type": "string", "description": "Dividend in binary" },
+            { "name": "b", "type": "string", "description": "Divisor in binary" }
+          ],
+          "output": {
+            "type": "string",
+            "description": "Binary result of a / b"
+          },
+          "logicFn": "binaryDivision"
+        }
+    }
+}
+}

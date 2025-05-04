@@ -1,34 +1,270 @@
-{
-  "calculators": {
-    "Number-theory": {
-      "isPrime": {
-        "description": "Check if a number is prime",
-        "inputs": [
-          { "name": "n", "type": "number", "description": "Number to check" }
-        ],
-        "output": { "type": "boolean", "description": "True if n is prime" },
-        "logicFn": "isPrime"
+{"calculators": {
+  "number-theory": {
+    "isPrime": {
+      "inputs": [
+        { "name": "n", "type": "number", "description": "Number to check" }
+      ],
+      "output": {
+        "type": "boolean",
+        "description": "True if n is prime, false otherwise"
       },
-      "gcd": {
-        "description": "Compute GCD of two numbers",
-        "inputs": [
-          { "name": "a", "type": "number" },
-          { "name": "b", "type": "number" }
-        ],
-        "output": { "type": "number" },
-        "logicFn": "gcd"
-      }
+      "logicFn": "isPrime"
     },
-    "Combinatorics": {
-      "nCr": {
-        "description": "Compute n choose r",
-        "inputs": [
-          { "name": "n", "type": "number" },
-          { "name": "r", "type": "number" }
-        ],
-        "output": { "type": "number" },
-        "logicFn": "nCr"
-      }
+    "firstPrimeBefore": {
+      "inputs": [
+        { "name": "n", "type": "number", "description": "Number to check" }
+      ],
+      "output": {
+        "type": "number",
+        "description": "The first prime number before n"
+      },
+      "logicFn": "firstPrimeBefore"
+    },
+    "firstPrimeAfter": {
+      "inputs": [
+        { "name": "n", "type": "number", "description": "Number to check" }
+      ],
+      "output": {
+        "type": "number",
+        "description": "The first prime number after n"
+      },
+      "logicFn": "firstPrimeAfter"
+    },
+    "Primes Between": {
+      "inputs": [
+        { "name": "a", "type": "number", "description": "First number" },
+        { "name": "b", "type": "number", "description": "Second number" }
+      ],
+      "output": {
+        "type": "array",
+        "description": "Array of prime numbers between a and b"
+      },
+      "logicFn": "primesBetween"
+    },
+    "nos of Primes Between": {
+      "inputs": [
+        { "name": "a", "type": "number", "description": "First number" },
+        { "name": "b", "type": "number", "description": "Second number" }
+      ],
+      "output": {
+        "type": "number",
+        "description": "Number of prime numbers between a and b"
+      },
+      "logicFn": "countPrimesBetween"
+    },
+    "Prime Factorization": {
+      "inputs": [
+        { "name": "n", "type": "number", "description": "Number to factorize" }
+      ],
+      "output": {
+        "type": "array",
+        "description": "Array of prime factors of n"
+      },
+      "logicFn": "primeFactorization"
+    },
+    "Divisors": {
+      "inputs": [
+        { "name": "n", "type": "number", "description": "Number to find divisors of" }
+      ],
+      "output": {
+        "type": "array",
+        "description": "Array of divisors of n"
+      },
+      "logicFn": "getDivisors"
+    },
+    "Number of Divisors": {
+      "inputs": [
+        { "name": "n", "type": "number", "description": "Number to find divisors of" }
+      ],
+      "output": {
+        "type": "number",
+        "description": "Number of divisors of n"
+      },
+      "logicFn": "countDivisors"
+    },
+    "GCD": {
+      "inputs": [
+        { "name": "a", "type": "number", "description": "First number" },
+        { "name": "b", "type": "number", "description": "Second number" }
+      ],
+      "output": {
+        "type": "number",
+        "description": "GCD of a and b"
+      },
+      "logicFn": "gcd"
+    },
+    "LCM": {
+      "inputs": [
+        { "name": "a", "type": "number", "description": "First number" },
+        { "name": "b", "type": "number", "description": "Second number" }
+      ],
+      "output": {
+        "type": "number",
+        "description": "LCM of a and b"
+      },
+      "logicFn": "lcm"
+    },
+    "isPerfectSquare": {
+      "inputs": [
+        { "name": "n", "type": "number", "description": "Number to check" }
+      ],
+      "output": {
+        "type": "boolean",
+        "description": "True if n is a perfect square, false otherwise"
+      },
+      "logicFn": "isPerfectSquare"
+    },
+    "Sqrt": {
+      "inputs": [
+        { "name": "n", "type": "number", "description": "Number to find square root of" }
+      ],
+      "output": {
+        "type": "number",
+        "description": "Square root of n"
+      },
+      "logicFn": "squareRoot"
+    },
+    "Euler Phi": {
+      "inputs": [
+        { "name": "n", "type": "number", "description": "Number to find Euler's Totient function of" }
+      ],
+      "output": {
+        "type": "number",
+        "description": "Euler's Totient function of n"
+      },
+      "logicFn": "eulerPhi"
     }
-  }
+  },
+  "combinatorics": {
+        "nCr": {
+          "inputs": [
+            { "name": "n", "type": "number", "description": "Total number of items" },
+            { "name": "r", "type": "number", "description": "Items to choose" }
+          ],
+          "output": {
+            "type": "number",
+            "description": "n choose r (number of combinations)"
+          },
+          "logicFn": "nCr"
+        },
+        "nPr": {
+          "inputs": [
+            { "name": "n", "type": "number", "description": "Total number of items" },
+            { "name": "r", "type": "number", "description": "Items to arrange" }
+          ],
+          "output": {
+            "type": "number",
+            "description": "n permute r (number of permutations)"
+          },
+          "logicFn": "nPr"
+        },
+        "factorial": {
+          "inputs": [
+            { "name": "n", "type": "number", "description": "Number to compute factorial of" }
+          ],
+          "output": {
+            "type": "number",
+            "description": "Factorial of n"
+          },
+          "logicFn": "factorial"
+        },
+        "Catalan": {
+          "inputs": [
+            { "name": "n", "type": "number", "description": "Index of Catalan number" }
+          ],
+          "output": {
+            "type": "number",
+            "description": "The n-th Catalan number"
+          },
+          "logicFn": "catalanNumber"
+        },
+        "Stirling Second Kind": {
+          "inputs": [
+            { "name": "n", "type": "number", "description": "Total elements" },
+            { "name": "k", "type": "number", "description": "Number of non-empty subsets" }
+          ],
+          "output": {
+            "type": "number",
+            "description": "Stirling number of the second kind S(n, k)"
+          },
+          "logicFn": "stirlingSecondKind"
+        },
+        "Bell Number": {
+          "inputs": [
+            { "name": "n", "type": "number", "description": "Number of elements" }
+          ],
+          "output": {
+            "type": "number",
+            "description": "Bell number B(n)"
+          },
+          "logicFn": "bellNumber"
+        }
+      },
+    "binary-ops": {
+        "Binary to Decimal": {
+          "inputs": [
+            { "name": "binary", "type": "string", "description": "Binary string" }
+          ],
+          "output": {
+            "type": "number",
+            "description": "Decimal value of binary string"
+          },
+          "logicFn": "binaryToDecimal"
+        },
+        "Decimal to Binary": {
+          "inputs": [
+            { "name": "decimal", "type": "number", "description": "Decimal number" }
+          ],
+          "output": {
+            "type": "string",
+            "description": "Binary representation of decimal number"
+          },
+          "logicFn": "decimalToBinary"
+        },
+        "Binary Addition": {
+          "inputs": [
+            { "name": "a", "type": "string", "description": "First binary number" },
+            { "name": "b", "type": "string", "description": "Second binary number" }
+          ],
+          "output": {
+            "type": "string",
+            "description": "Binary result of a + b"
+          },
+          "logicFn": "binaryAddition"
+        },
+        "Binary Subtraction": {
+          "inputs": [
+            { "name": "a", "type": "string", "description": "First binary number" },
+            { "name": "b", "type": "string", "description": "Second binary number" }
+          ],
+          "output": {
+            "type": "string",
+            "description": "Binary result of a - b"
+          },
+          "logicFn": "binarySubtraction"
+        },
+        "Binary Multiplication": {
+          "inputs": [
+            { "name": "a", "type": "string", "description": "First binary number" },
+            { "name": "b", "type": "string", "description": "Second binary number" }
+          ],
+          "output": {
+            "type": "string",
+            "description": "Binary result of a * b"
+          },
+          "logicFn": "binaryMultiplication"
+        },
+        "Binary Division": {
+          "inputs": [
+            { "name": "a", "type": "string", "description": "Dividend in binary" },
+            { "name": "b", "type": "string", "description": "Divisor in binary" }
+          ],
+          "output": {
+            "type": "string",
+            "description": "Binary result of a / b"
+          },
+          "logicFn": "binaryDivision"
+        }
+    }
+}
 }
