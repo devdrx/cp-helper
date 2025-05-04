@@ -1,65 +1,106 @@
-// src/pages/Login.jsx
-
-import * as Label from '@radix-ui/react-label';
-import { useState } from 'react';
+import { useState, useContext, useEffect } from "react";
+import { useNavigate, Link } from "react-router-dom";
+import { DarkModeContext } from "../App";
 
 export default function Login() {
-  const [formData, setFormData] = useState({ email: '', password: '' });
+  const { darkMode } = useContext(DarkModeContext);
+  const navigate = useNavigate();
 
-  const handleChange = (e) => {
-    setFormData(prev => ({ ...prev, [e.target.name]: e.target.value }));
-  };
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+
+  useEffect(() => {
+    // Redirect if already logged in
+    if (localStorage.getItem("isLoggedIn") === "true") {
+      navigate("/");
+    }
+  }, [navigate]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log('Login data:', formData);
-    // Call API or Auth handler here
+    // TODO: Replace with real authentication
+    if (email === "user@example.com" && password === "password123") {
+      localStorage.setItem("isLoggedIn", "true");
+      navigate("/");
+    } else {
+      setError("Invalid email or password");
+    }
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100 p-4">
-      <form onSubmit={handleSubmit} className="bg-white p-6 rounded-2xl shadow-md w-full max-w-md space-y-4">
-        <h1 className="text-2xl font-bold text-center">Login to Forum</h1>
+    <div className={`flex justify-center items-center min-h-screen p-4 transition-colors ${
+      darkMode ? "bg-gray-900 text-white" : "bg-gray-100 text-black"
+    }`}>
+      <form
+        onSubmit={handleSubmit}
+        className={`w-full max-w-sm p-6 rounded-lg shadow-lg transition-colors ${
+          darkMode ? "bg-gray-800" : "bg-white"
+        }`}
+      >
+        <h2 className="text-2xl font-semibold mb-6">Login to CP Tool</h2>
 
-        <div className="space-y-2">
-          <Label.Root htmlFor="email" className="block text-sm font-medium text-gray-700">
+        {error && <p className="text-red-500 mb-4">{error}</p>}
+
+        <div className="mb-4">
+          <label className="block mb-1" htmlFor="email">
             Email
-          </Label.Root>
+          </label>
           <input
             id="email"
-            name="email"
             type="email"
-            value={formData.email}
-            onChange={handleChange}
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
             required
-            className="w-full px-3 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring focus:ring-blue-200"
+            className={`w-full p-2 rounded border focus:outline-none transition-colors ${
+              darkMode
+                ? "bg-gray-700 border-gray-600 text-white placeholder-gray-400 focus:border-blue-500"
+                : "bg-gray-100 border-gray-300 text-black focus:border-blue-600"
+            }`}
+            placeholder="you@example.com"
           />
         </div>
 
-        <div className="space-y-2">
-          <Label.Root htmlFor="password" className="block text-sm font-medium text-gray-700">
+        <div className="mb-6">
+          <label className="block mb-1" htmlFor="password">
             Password
-          </Label.Root>
+          </label>
           <input
             id="password"
-            name="password"
             type="password"
-            value={formData.password}
-            onChange={handleChange}
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
             required
-            className="w-full px-3 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring focus:ring-blue-200"
+            className={`w-full p-2 rounded border focus:outline-none transition-colors ${
+              darkMode
+                ? "bg-gray-700 border-gray-600 text-white placeholder-gray-400 focus:border-blue-500"
+                : "bg-gray-100 border-gray-300 text-black focus:border-blue-600"
+            }`}
+            placeholder="••••••••"
           />
         </div>
 
         <button
           type="submit"
-          className="w-full bg-blue-600 text-white py-2 rounded-xl hover:bg-blue-700 transition"
+          className={`w-full py-2 font-semibold rounded transition-all ${
+            darkMode
+              ? "bg-blue-600 hover:bg-blue-700 text-white"
+              : "bg-blue-500 hover:bg-blue-600 text-white"
+          }`}
         >
-          Log In
+          Sign In
         </button>
 
-        <p className="text-center text-sm text-gray-500 mt-4">
-          Don't have an account? <a href="/register" className="text-blue-600 underline">Sign Up</a>
+        <p className="mt-4 text-center text-sm">
+          Don’t have an account?{' '}
+          <Link
+            to="/register"
+            className={`underline transition-colors ${
+              darkMode ? "text-blue-400 hover:text-blue-300" : "text-blue-600 hover:text-blue-500"
+            }`}
+          >
+            Register
+          </Link>
         </p>
       </form>
     </div>

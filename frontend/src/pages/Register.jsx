@@ -1,105 +1,139 @@
-// src/pages/Register.jsx
-
-import * as Label from '@radix-ui/react-label';
-import { useState } from 'react';
+import { useState, useContext, useEffect } from "react";
+import { useNavigate, Link } from "react-router-dom";
+import { DarkModeContext } from "../App";
 
 export default function Register() {
-  const [formData, setFormData] = useState({
-    username: '',
-    email: '',
-    password: '',
-    confirmPassword: ''
-  });
+  const { darkMode } = useContext(DarkModeContext);
+  const navigate = useNavigate();
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
-  };
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [error, setError] = useState("");
+
+  useEffect(() => {
+    // Redirect if already logged in
+    if (localStorage.getItem("isLoggedIn") === "true") {
+      navigate("/");
+    }
+  }, [navigate]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (formData.password !== formData.confirmPassword) {
-      alert('Passwords do not match!');
+    // Basic validation
+    if (!email || !password || !confirmPassword) {
+      setError("All fields are required");
       return;
     }
-    console.log('Registration Data:', formData);
-    // Send to backend API here
+    if (password !== confirmPassword) {
+      setError("Passwords do not match");
+      return;
+    }
+    // TODO: Replace with real registration logic
+    // For demo, save to localStorage
+    const users = JSON.parse(localStorage.getItem("users") || "[]");
+    if (users.find((u) => u.email === email)) {
+      setError("Email already registered");
+      return;
+    }
+    users.push({ email, password });
+    localStorage.setItem("users", JSON.stringify(users));
+    // Redirect to login
+    navigate("/login");
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100 px-4">
-      <form onSubmit={handleSubmit} className="bg-white p-6 rounded-2xl shadow-md w-full max-w-md space-y-4">
-        <h1 className="text-2xl font-bold text-center">Create an Account</h1>
+    <div className={`flex justify-center items-center min-h-screen p-4 transition-colors ${
+      darkMode ? "bg-gray-900 text-white" : "bg-gray-100 text-black"
+    }`}>
+      <form
+        onSubmit={handleSubmit}
+        className={`w-full max-w-sm p-6 rounded-lg shadow-lg transition-colors ${
+          darkMode ? "bg-gray-800" : "bg-white"
+        }`}
+      >
+        <h2 className="text-2xl font-semibold mb-6">Create an Account</h2>
 
-        <div className="space-y-2">
-          <Label.Root htmlFor="username" className="block text-sm font-medium text-gray-700">
-            Username
-          </Label.Root>
-          <input
-            id="username"
-            name="username"
-            type="text"
-            value={formData.username}
-            onChange={handleChange}
-            required
-            className="w-full px-3 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring focus:ring-blue-200"
-          />
-        </div>
+        {error && <p className="text-red-500 mb-4">{error}</p>}
 
-        <div className="space-y-2">
-          <Label.Root htmlFor="email" className="block text-sm font-medium text-gray-700">
+        <div className="mb-4">
+          <label className="block mb-1" htmlFor="email">
             Email
-          </Label.Root>
+          </label>
           <input
             id="email"
-            name="email"
             type="email"
-            value={formData.email}
-            onChange={handleChange}
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
             required
-            className="w-full px-3 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring focus:ring-blue-200"
+            className={`w-full p-2 rounded border focus:outline-none transition-colors ${
+              darkMode
+                ? "bg-gray-700 border-gray-600 text-white placeholder-gray-400 focus:border-blue-500"
+                : "bg-gray-100 border-gray-300 text-black focus:border-blue-600"
+            }`}
+            placeholder="you@example.com"
           />
         </div>
 
-        <div className="space-y-2">
-          <Label.Root htmlFor="password" className="block text-sm font-medium text-gray-700">
+        <div className="mb-4">
+          <label className="block mb-1" htmlFor="password">
             Password
-          </Label.Root>
+          </label>
           <input
             id="password"
-            name="password"
             type="password"
-            value={formData.password}
-            onChange={handleChange}
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
             required
-            className="w-full px-3 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring focus:ring-blue-200"
+            className={`w-full p-2 rounded border focus:outline-none transition-colors ${
+              darkMode
+                ? "bg-gray-700 border-gray-600 text-white placeholder-gray-400 focus:border-blue-500"
+                : "bg-gray-100 border-gray-300 text-black focus:border-blue-600"
+            }`}
+            placeholder="••••••••"
           />
         </div>
 
-        <div className="space-y-2">
-          <Label.Root htmlFor="confirmPassword" className="block text-sm font-medium text-gray-700">
+        <div className="mb-6">
+          <label className="block mb-1" htmlFor="confirmPassword">
             Confirm Password
-          </Label.Root>
+          </label>
           <input
             id="confirmPassword"
-            name="confirmPassword"
             type="password"
-            value={formData.confirmPassword}
-            onChange={handleChange}
+            value={confirmPassword}
+            onChange={(e) => setConfirmPassword(e.target.value)}
             required
-            className="w-full px-3 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring focus:ring-blue-200"
+            className={`w-full p-2 rounded border focus:outline-none transition-colors ${
+              darkMode
+                ? "bg-gray-700 border-gray-600 text-white placeholder-gray-400 focus:border-blue-500"
+                : "bg-gray-100 border-gray-300 text-black focus:border-blue-600"
+            }`}
+            placeholder="••••••••"
           />
         </div>
 
         <button
           type="submit"
-          className="w-full bg-green-600 text-white py-2 rounded-xl hover:bg-green-700 transition"
+          className={`w-full py-2 font-semibold rounded transition-all ${
+            darkMode
+              ? "bg-green-600 hover:bg-green-700 text-white"
+              : "bg-green-500 hover:bg-green-600 text-white"
+          }`}
         >
           Register
         </button>
 
-        <p className="text-center text-sm text-gray-500 mt-4">
-          Already have an account? <a href="/login" className="text-blue-600 underline">Log In</a>
+        <p className="mt-4 text-center text-sm">
+          Already have an account?{' '}
+          <Link
+            to="/login"
+            className={`underline transition-colors ${
+              darkMode ? "text-blue-400 hover:text-blue-300" : "text-blue-600 hover:text-blue-500"
+            }`}
+          >
+            Sign In
+          </Link>
         </p>
       </form>
     </div>
