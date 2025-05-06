@@ -1,8 +1,11 @@
 import { useState, useContext, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { DarkModeContext } from "../App";
+import { useAuth } from "../context/AuthContext";
+
 
 export default function Login() {
+  const { setIsLoggedIn } = useAuth(); // Get the setter
   const { darkMode } = useContext(DarkModeContext);
   const navigate = useNavigate();
 
@@ -28,13 +31,14 @@ export default function Login() {
       body: JSON.stringify({ email, password }),
       credentials: "include",
     });
-    if(response.ok) {
+    if (response.ok) {
       const data = await response.json();
       localStorage.setItem("isLoggedIn", "true");
       localStorage.setItem("token", data.token);
       localStorage.setItem("user", JSON.stringify(data.user));
+      setIsLoggedIn(true); // <--- This updates Header reactively
       navigate("/");
-    }
+    }    
     else {
       const errorData = await response.json();
       setError(errorData.message || "Login failed. Please try again.");
