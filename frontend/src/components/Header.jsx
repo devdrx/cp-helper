@@ -1,3 +1,5 @@
+// src/components/Header.jsx
+
 import { useContext } from "react";
 import { Link } from "react-router-dom";
 import * as Switch from "@radix-ui/react-switch";

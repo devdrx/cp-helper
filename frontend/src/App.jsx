@@ -1,4 +1,3 @@
-import { createContext, useState } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Header from "./components/Header";
 import Home from "./pages/Home";
@@ -15,8 +14,7 @@ export const DarkModeContext = createContext();
 // export const AuthContext = createContext();
 
 export default function App() {
-  const [darkMode, setDarkMode] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  // const [darkMode, setDarkMode] = useState(false);
 
   return (
     <DarkModeContext.Provider value={{ darkMode, setDarkMode }}>
