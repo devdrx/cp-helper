@@ -5,73 +5,64 @@ import * as logic from "../utils/calcLogic";
 import { DarkModeContext } from "../App";
 
 export default function CalculatorRenderer({ categoryKey, functionKey }) {
-  // Hooks must run unconditionally
   const { darkMode } = useContext(DarkModeContext);
   const [values, setValues] = useState({});
   const [result, setResult] = useState(null);
 
-  // Determine function definition and inputs
+  // Get function definition
   const fnDef = calcDefs.calculators?.[categoryKey]?.[functionKey] || null;
   const inputs = fnDef?.inputs || [];
+  const { output, description, logicFn } = fnDef || {};
+  const fn = logic[logicFn];
 
-  // Reset form whenever category or function changes
+  // Reset form when selection changes
   useEffect(() => {
-    // Initialize values
-    const initValues = inputs.reduce((acc, input) => {
-      acc[input.name] = "";
-      return acc;
-    }, {});
-    setValues(initValues);
+    const init = inputs.reduce((acc, inp) => ({ ...acc, [inp.name]: "" }), {});
+    setValues(init);
     setResult(null);
   }, [categoryKey, functionKey, inputs]);
 
-  // If no valid function, show fallback
   if (!fnDef) {
     return (
-      <p className="text-red-500">
-        No calculator found for {categoryKey} → {functionKey}
-      </p>
+      <p className="text-red-500 p-4">No calculator found for {categoryKey} → {functionKey}</p>
     );
   }
 
-  const { output, description, logicFn } = fnDef;
-  const fn = logic[logicFn];
-
-  // Styling tokens
+  // Styling
+  const containerBg = darkMode ? "bg-gray-800" : "bg-white";
+  const containerBorder = darkMode ? "border-gray-600" : "border-gray-300";
   const inputBg = darkMode ? "bg-gray-700" : "bg-gray-100";
   const inputText = darkMode ? "text-white" : "text-gray-900";
   const inputBorder = darkMode ? "border-gray-600" : "border-gray-300";
   const placeholder = darkMode ? "placeholder-gray-400" : "placeholder-gray-500";
 
-  const handleChange = (name, value) => {
-    setValues(prev => ({ ...prev, [name]: value }));
-  };
+  const handleChange = (name, val) => setValues(prev => ({ ...prev, [name]: val }));
 
-  const handleSubmit = event => {
-    event.preventDefault();
-    const args = inputs.map(inp =>
-      inp.type === "number" ? Number(values[inp.name]) : values[inp.name]
-    );
+  const handleSubmit = e => {
+    e.preventDefault();
+    const args = inputs.map(i => (i.type === "number" ? +values[i.name] : values[i.name]));
     setResult(fn(...args));
   };
 
   return (
-    <div className="space-y-6">
+    <div className={`${containerBg} border ${containerBorder} rounded-xl p-6 space-y-6 transition-colors`}>
+      {/* Title */}
       <div className="space-y-1">
-  <h2 className="text-2xl font-bold capitalize">{functionKey.replace(/-/g, " ")}</h2>
-  <p className="text-sm text-gray-400">{description}</p>
-</div>
+        <h2 className="text-2xl font-bold capitalize">{functionKey.replace(/-/g, ' ')}</h2>
+        <p className="text-sm text-gray-400">{description}</p>
+      </div>
 
+      {/* Form */}
       <form onSubmit={handleSubmit} className="space-y-4">
         {inputs.map(inp => (
-          <div key={inp.name} className="space-y-1">
-            <label htmlFor={inp.name} className="block font-medium">
+          <div key={inp.name} className="mb-4">
+            <label htmlFor={inp.name} className="block mb-1 font-medium">
               {inp.name}
             </label>
             <input
               id={inp.name}
               type={inp.type}
-              value={values[inp.name]}
+              value={values[inp.name] ?? ""}
               onChange={e => handleChange(inp.name, e.target.value)}
               placeholder={inp.description}
               required
@@ -87,12 +78,11 @@ export default function CalculatorRenderer({ categoryKey, functionKey }) {
         </button>
       </form>
 
+      {/* Result */}
       {result !== null && (
-        <div className={`p-4 rounded-lg border ${inputBorder} ${inputBg} ${inputText} transition-colors`}>
+        <div className={`p-4 rounded-lg border ${containerBorder} ${containerBg} ${inputText} transition-colors`}>
           <strong>Result ({output.type}):</strong> {String(result)}
-          {output.description && (
-            <p className="mt-1 text-sm text-gray-400">{output.description}</p>
-          )}
+          {output.description && <p className="mt-1 text-sm text-gray-400">{output.description}</p>}
         </div>
       )}
     </div>
