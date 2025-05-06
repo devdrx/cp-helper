@@ -20,7 +20,7 @@ function ProfileMenu() {
     setIsLoggedIn(false);   
     localStorage.removeItem("user");
     localStorage.removeItem("isLoggedIn");
-    navigate("/login");
+    navigate("/");
   };
 
   return (
