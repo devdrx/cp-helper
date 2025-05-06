@@ -1,5 +1,5 @@
 // src/components/GraphEditor.jsx
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import * as d3 from "d3";
 
 export default function GraphEditor() {
@@ -22,20 +22,23 @@ export default function GraphEditor() {
   };
 
   const drawGraph = (nodes, links, directed) => {
-    const width = 600;
-    const height = 600;
-
+    // get actual SVG size for dynamic centering
     const svgEl = d3.select(svgRef.current);
-    svgEl.selectAll("*").remove();
-    svgEl.attr("width", width).attr("height", height);
+    const bbox = svgRef.current.getBoundingClientRect();
+    const width = bbox.width;
+    const height = bbox.height;
+    const margin = 50;
 
-    // Random initial positions
+    svgEl.selectAll("*").remove();
+    svgEl.attr("viewBox", `0 0 ${width} ${height}`);
+
+    // Random initial positions within inner area
     nodes.forEach(n => {
-      n.x = Math.random() * width;
-      n.y = Math.random() * height;
+      n.x = margin + Math.random() * (width - 2 * margin);
+      n.y = margin + Math.random() * (height - 2 * margin);
     });
 
-    // Define arrow marker if directed
+    // arrowhead
     if (directed) {
       const defs = svgEl.append("defs");
       defs.append("marker")
@@ -46,22 +49,16 @@ export default function GraphEditor() {
         .attr("orient", "auto")
         .attr("markerWidth", 6)
         .attr("markerHeight", 6)
-        .attr("xoverflow", "visible")
-      .append("svg:path")
+        .append("path")
         .attr("d", "M0,-5L10,0L0,5")
-        .attr("fill", "#aaa")
-        .style("stroke", "none");
+        .attr("fill", "#aaa");
     }
 
     const simulation = d3.forceSimulation(nodes)
-      // repulsive force to keep nodes apart
       .force("charge", d3.forceManyBody().strength(-200))
-      .force("link", d3.forceLink(links)
-        .id(d => d.id)
-        .distance(100)
-        .strength(0.1)
-      )
-      .force("center", d3.forceCenter(width / 2, height / 2));
+      .force("link", d3.forceLink(links).id(d => d.id).distance(100).strength(0.1))
+      .force("center", d3.forceCenter(width / 2, height / 2))
+      .on("tick", ticked);
 
     const link = svgEl.append("g")
       .selectAll("line")
@@ -77,11 +74,7 @@ export default function GraphEditor() {
       .enter().append("circle")
       .attr("r", 20)
       .attr("fill", "steelblue")
-      .call(d3.drag()
-        .on("start", dragStart)
-        .on("drag", dragging)
-        .on("end", dragEnd)
-      );
+      .call(d3.drag().on("start", dragStart).on("drag", dragging).on("end", dragEnd));
 
     const text = svgEl.append("g")
       .selectAll("text")
@@ -92,7 +85,12 @@ export default function GraphEditor() {
       .attr("text-anchor", "middle")
       .attr("dy", ".35em");
 
-    simulation.on("tick", () => {
+    function ticked() {
+      nodes.forEach(d => {
+        d.x = Math.max(margin, Math.min(width - margin, d.x));
+        d.y = Math.max(margin, Math.min(height - margin, d.y));
+      });
+
       link
         .attr("x1", d => d.source.x)
         .attr("y1", d => d.source.y)
@@ -101,7 +99,7 @@ export default function GraphEditor() {
 
       node.attr("cx", d => d.x).attr("cy", d => d.y);
       text.attr("x", d => d.x).attr("y", d => d.y);
-    });
+    }
 
     function dragStart(event, d) {
       if (!event.active) simulation.alphaTarget(0.3).restart();
