@@ -1,3 +1,4 @@
+import { createContext, useState, useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Header from "./components/Header";
 import Home from "./pages/Home";
@@ -15,6 +16,15 @@ export const DarkModeContext = createContext();
 
 export default function App() {
   // const [darkMode, setDarkMode] = useState(false);
+  const [darkMode, setDarkMode] = useState(() => {
+    // Initialize from localStorage (defaults to false if nothing found)
+    return localStorage.getItem("darkMode") === "true";
+  });
+
+  useEffect(() => {
+    // Sync dark mode state to localStorage on every change
+    localStorage.setItem("darkMode", darkMode);
+  }, [darkMode]);
 
   return (
     <DarkModeContext.Provider value={{ darkMode, setDarkMode }}>
