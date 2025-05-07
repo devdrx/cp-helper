@@ -1,8 +1,10 @@
 // src/components/GraphEditor.jsx
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useContext } from "react";
 import * as d3 from "d3";
+import { DarkModeContext } from "../App";
 
 export default function GraphEditor() {
+  const { darkMode } = useContext(DarkModeContext);
   const [nodeCount, setNodeCount] = useState("");
   const [graphData, setGraphData] = useState("");
   const [isDirected, setIsDirected] = useState(false);
@@ -22,7 +24,6 @@ export default function GraphEditor() {
   };
 
   const drawGraph = (nodes, links, directed) => {
-    // get actual SVG size for dynamic centering
     const svgEl = d3.select(svgRef.current);
     const bbox = svgRef.current.getBoundingClientRect();
     const width = bbox.width;
@@ -38,7 +39,7 @@ export default function GraphEditor() {
       n.y = margin + Math.random() * (height - 2 * margin);
     });
 
-    // arrowhead
+    // Define arrowhead if directed
     if (directed) {
       const defs = svgEl.append("defs");
       defs.append("marker")
@@ -74,7 +75,11 @@ export default function GraphEditor() {
       .enter().append("circle")
       .attr("r", 20)
       .attr("fill", "steelblue")
-      .call(d3.drag().on("start", dragStart).on("drag", dragging).on("end", dragEnd));
+      .call(d3.drag()
+        .on("start", dragStart)
+        .on("drag", dragging)
+        .on("end", dragEnd)
+      );
 
     const text = svgEl.append("g")
       .selectAll("text")
@@ -121,99 +126,90 @@ export default function GraphEditor() {
 
   return (
     <div className="flex flex-col lg:flex-row gap-6 p-6">
-     {/* Left – Form */}
-<div
-  className="
-    lg:w-1/2
-    bg-white dark:bg-gray-800 
-    border border-gray-300 dark:border-gray-700 
-    rounded-2xl p-6 
-    flex flex-col            /* make this a flex‑column container */
-    shadow
-  "
->
-  <h2 className="text-2xl font-bold mb-2 text-gray-900 dark:text-white">
-    Graph Editor
-  </h2>
+      {/* Left – Form */}
+      <div
+        className={`
+          lg:w-1/2 rounded-2xl p-6 flex flex-col shadow
+          border ${darkMode ? "border-gray-700" : "border-gray-300"}
+          ${darkMode ? "bg-gray-800"    : "bg-white"}
+        `}
+      >
+        <h2 className={`text-2xl font-bold mb-2 ${darkMode ? "text-white" : "text-gray-900"}`}>
+          Graph Editor
+        </h2>
 
-  <div className="pt-2">
-    <label className="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-1">
-      Node Count
-    </label>
-    <input
-      type="number"
-      value={nodeCount}
-      onChange={e => setNodeCount(e.target.value)}
-      className="
-        w-full px-3 py-2 rounded-lg
-        border border-gray-300 dark:border-gray-600
-        bg-gray-100 dark:bg-gray-700
-        text-gray-900 dark:text-white
-        placeholder-gray-500 dark:placeholder-gray-400
-        focus:outline-none focus:ring-2 focus:ring-blue-500
-      "
-      placeholder="e.g., 6"
-    />
-  </div>
+        <div className="pt-2">
+          <label className={`block text-sm font-medium mb-1 ${darkMode ? "text-gray-200" : "text-gray-700"}`}>
+            Node Count
+          </label>
+          <input
+            type="number"
+            value={nodeCount}
+            onChange={e => setNodeCount(e.target.value)}
+            placeholder="e.g., 6"
+            className={`
+              w-full px-3 py-2 rounded-lg
+              border ${darkMode ? "border-gray-600" : "border-gray-300"}
+              ${darkMode ? "bg-gray-700 text-white placeholder-gray-400" : "bg-gray-100 text-gray-900 placeholder-gray-500"}
+              focus:outline-none focus:ring-2 focus:ring-blue-500
+            `}
+          />
+        </div>
 
-  {/* make this wrapper grow and push the button down */}
-  <div className="flex flex-col flex-1 pt-4">
-    <label className="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-1">
-      Graph Data (edges)
-    </label>
-    <textarea
-      rows={6}
-      value={graphData}
-      onChange={e => setGraphData(e.target.value)}
-      className="
-        flex-1                   /* grow to fill remaining space */
-        w-full px-3 py-2 rounded-lg
-        border border-gray-300 dark:border-gray-600
-        bg-gray-100 dark:bg-gray-700
-        text-gray-900 dark:text-white
-        placeholder-gray-500 dark:placeholder-gray-400
-        focus:outline-none focus:ring-2 focus:ring-blue-500
-        resize-none              /* prevent manual resize */
-        overflow-auto            /* scroll if overflow */
-      "
-      placeholder={`0 2
-0 4
-0 5
-1 4
-1 5
-2 3
-2 4
-4 5`}
-    />
-  </div>
+        <div className="flex flex-col flex-1 pt-4">
+          <label className={`block text-sm font-medium mb-1 ${darkMode ? "text-gray-200" : "text-gray-700"}`}>
+            Graph Data (edges)
+          </label>
+          <textarea
+            rows={6}
+            value={graphData}
+            onChange={e => setGraphData(e.target.value)}
+            placeholder={`0 2\n0 4\n0 5\n1 4\n1 5\n2 3\n2 4\n4 5`}
+            className={`
+              flex-1 w-full px-3 py-2 rounded-lg
+              border ${darkMode ? "border-gray-600" : "border-gray-300"}
+              ${darkMode ? "bg-gray-700 text-white placeholder-gray-400" : "bg-gray-100 text-gray-900 placeholder-gray-500"}
+              focus:outline-none focus:ring-2 focus:ring-blue-500
+              resize-none overflow-auto
+            `}
+          />
+        </div>
 
-  <div className="flex items-center space-x-2 pt-4">
-    <input
-      type="checkbox"
-      checked={isDirected}
-      onChange={() => setIsDirected(!isDirected)}
-      className="accent-blue-500"
-    />
-    <label className="text-gray-700 dark:text-gray-200">Directed Graph</label>
-  </div>
+        <div className="flex items-center space-x-2 pt-4">
+          <input
+            type="checkbox"
+            checked={isDirected}
+            onChange={() => setIsDirected(!isDirected)}
+            className="accent-blue-500"
+          />
+          <label className={`${darkMode ? "text-gray-200" : "text-gray-700"}`}>
+            Directed Graph
+          </label>
+        </div>
 
-  <button
-    onClick={handleDraw}
-    className="
-      mt-4                    /* some top margin */
-      w-full py-2 px-4 
-      bg-blue-600 hover:bg-blue-700 
-      text-white font-semibold 
-      rounded-lg transition
-    "
-  >
-    Draw Graph
-  </button>
-</div>
+        <button
+          onClick={handleDraw}
+          className="mt-4 w-full py-2 px-4 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg transition"
+        >
+          Draw Graph
+        </button>
+      </div>
 
-      {/* Right - Graph Canvas */}
-      <div className="lg:w-1/2 border border-gray-300 dark:border-gray-600 rounded-2xl p-4 bg-white dark:bg-gray-900 shadow">
-        <svg ref={svgRef} className="w-full h-[600px] rounded-xl border border-gray-200 dark:border-gray-700" />
+      {/* Right – Graph Canvas */}
+      <div
+        className={`
+          lg:w-1/2 rounded-2xl p-4 shadow
+          border ${darkMode ? "border-gray-600" : "border-gray-300"}
+          ${darkMode ? "bg-gray-900"    : "bg-white"}
+        `}
+      >
+        <svg
+          ref={svgRef}
+          className={`
+            w-full h-[600px] rounded-xl
+            border ${darkMode ? "border-gray-700" : "border-gray-200"}
+          `}
+        />
       </div>
     </div>
   );
