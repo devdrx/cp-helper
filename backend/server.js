@@ -1,5 +1,4 @@
 const express = require('express');
-const mongoose = require('mongoose');
 const cors = require('cors');
 const { connectDB } = require('./connection');
 const mongouri = process.env.MONGO_URI 

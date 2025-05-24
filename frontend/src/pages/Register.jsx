@@ -6,6 +6,7 @@ export default function Register() {
   const { darkMode } = useContext(DarkModeContext);
   const navigate = useNavigate();
 
+  const [userName, setUserName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -18,29 +19,29 @@ export default function Register() {
     }
   }, [navigate]);
 
-  const handleSubmit = (e) => {
+  async function handleSubmit(e) {
     e.preventDefault();
-    // Basic validation
-    if (!email || !password || !confirmPassword) {
-      setError("All fields are required");
-      return;
-    }
     if (password !== confirmPassword) {
-      setError("Passwords do not match");
+      setError("Passwords do not match.");
       return;
     }
-    // TODO: Replace with real registration logic
-    // For demo, save to localStorage
-    const users = JSON.parse(localStorage.getItem("users") || "[]");
-    if (users.find((u) => u.email === email)) {
-      setError("Email already registered");
-      return;
+
+    const response = await fetch("http://localhost:5000/api/users/signup", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({userName, email, password }),
+      credentials: "include",
+    });
+
+    if (response.ok) {
+      navigate("/login");
+    } else {
+      const errorData = await response.json();
+      setError(errorData.message || "Registration failed. Please try again.");
     }
-    users.push({ email, password });
-    localStorage.setItem("users", JSON.stringify(users));
-    // Redirect to login
-    navigate("/login");
-  };
+  }
 
   return (
     <div className={`flex justify-center items-center min-h-screen p-4 transition-colors ${
@@ -55,7 +56,26 @@ export default function Register() {
         <h2 className="text-2xl font-semibold mb-6">Create an Account</h2>
 
         {error && <p className="text-red-500 mb-4">{error}</p>}
+        
 
+        <div className="mb-4">
+          <label className="block mb-1" htmlFor="userName">
+            Username
+          </label>
+          <input
+            id="userName"
+            type="userName"
+            value={userName}
+            onChange={(e) => setUserName(e.target.value)}
+            required
+            className={`w-full p-2 rounded border focus:outline-none transition-colors ${
+              darkMode
+                ? "bg-gray-700 border-gray-600 text-white placeholder-gray-400 focus:border-blue-500"
+                : "bg-gray-100 border-gray-300 text-black focus:border-blue-600"
+            }`}
+            placeholder="username123"
+          />
+        </div>
         <div className="mb-4">
           <label className="block mb-1" htmlFor="email">
             Email
@@ -120,6 +140,7 @@ export default function Register() {
               ? "bg-green-600 hover:bg-green-700 text-white"
               : "bg-green-500 hover:bg-green-600 text-white"
           }`}
+          
         >
           Register
         </button>
