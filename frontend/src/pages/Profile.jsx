@@ -13,32 +13,42 @@ export default function Profile() {
   const { isLoggedIn } = useAuth();
   const { darkMode } = useContext(DarkModeContext);
   const navigate = useNavigate();
+  const { logout } = useAuth(); // Assuming you have a logout function in your AuthContext
 
   const [user, setUser] = useState(null);
   const [activeSection, setActiveSection] = useState("personal");
 
   useEffect(() => {
     const fetchUser = async () => {
-      const response = await fetch("http://localhost:5000/api/users/userInfo", {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      });
-
-      if (response.ok) {
-        const data = await response.json();
-        setUser(data);
-      } else {
-        console.error("Failed to fetch user data");
+      try {
+        const response = await fetch("http://localhost:5000/api/users/userInfo", {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        });
+  
+        if (response.ok) {
+          const data = await response.json();
+          setUser(data);
+        } else if (response.status === 401) {
+          console.warn("Token expired. Logging out...");
+          logout(); // ✅ Make sure this is imported from context
+          navigate("/login");
+        } else {
+          console.error("Failed to fetch user data");
+        }
+      } catch (error) {
+        console.error("Unexpected error:", error);
       }
     };
-
+  
     if (isLoggedIn) {
       fetchUser();
     }
-  }, [isLoggedIn, navigate]);
+  }, [isLoggedIn, navigate, logout]);
+  
 
   if (!user) return null;
 

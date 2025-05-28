@@ -9,43 +9,47 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import PostCreate from "./pages/PostCreate";
 import Profile from "./pages/Profile";
-import { AuthContext, AuthProvider } from "./context/AuthContext";
+import { AuthProvider } from "./context/AuthContext";
+import AutoLogoutWrapper from "./components/AutoLogoutWrapper"; // ✅ wrapper
 
 export const DarkModeContext = createContext();
-// export const AuthContext = createContext();
 
-export default function App() {
-  // const [darkMode, setDarkMode] = useState(false);
+function AppContent() {
   const [darkMode, setDarkMode] = useState(() => {
-    // Initialize from localStorage (defaults to false if nothing found)
     return localStorage.getItem("darkMode") === "true";
   });
 
   useEffect(() => {
-    // Sync dark mode state to localStorage on every change
     localStorage.setItem("darkMode", darkMode);
   }, [darkMode]);
 
   return (
     <DarkModeContext.Provider value={{ darkMode, setDarkMode }}>
-      <AuthProvider>
-        <div className={darkMode ? "bg-gray-900 text-white min-h-screen" : "bg-gray-100 text-black min-h-screen"}>
-          <Router>
-            <Header />
-            <Routes>
-              <Route path="/login" element={<Login/>} />
-              <Route path="/register" element={<Register/>} />
-              <Route path="/" element={<Home />} />
-              <Route path="/graph-editor" element={<GraphEditor />} />
-              <Route path="/calculator" element={<Calculator />} />
-              <Route path="/documentation" element={<Documentation />} />
-              <Route path="/createpost" element={<PostCreate />} />
-              <Route path="/profile/" element={<Profile/>} />
-              <Route path="*" element={<div>404 Not Found</div>} />
-            </Routes>
-          </Router>
-        </div>
-      </AuthProvider>
+      <div className={darkMode ? "bg-gray-900 text-white min-h-screen" : "bg-gray-100 text-black min-h-screen"}>
+        <Router>
+          <AutoLogoutWrapper /> {/* ✅ Called AFTER <Router> is mounted */}
+          <Header />
+          <Routes>
+            <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
+            <Route path="/" element={<Home />} />
+            <Route path="/graph-editor" element={<GraphEditor />} />
+            <Route path="/calculator" element={<Calculator />} />
+            <Route path="/documentation" element={<Documentation />} />
+            <Route path="/createpost" element={<PostCreate />} />
+            <Route path="/profile/" element={<Profile />} />
+            <Route path="*" element={<div>404 Not Found</div>} />
+          </Routes>
+        </Router>
+      </div>
     </DarkModeContext.Provider>
+  );
+}
+
+export default function App() {
+  return (
+    <AuthProvider>
+      <AppContent />
+    </AuthProvider>
   );
 }
