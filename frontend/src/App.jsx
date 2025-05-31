@@ -7,7 +7,7 @@ import Calculator from "./pages/Calculator";
 import Documentation from "./pages/Documentation";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
-import PostCreate from "./pages/PostCreate";
+// import PostCreate from "./pages/PostCreate";
 import Profile from "./pages/Profile";
 import { AuthProvider } from "./context/AuthContext";
 import AutoLogoutWrapper from "./components/AutoLogoutWrapper"; // ✅ wrapper
@@ -15,6 +15,7 @@ import AutoLogoutWrapper from "./components/AutoLogoutWrapper"; // ✅ wrapper
 import { CodeforcesProvider } from "./context/CodeforcesContext";
 import SubmitBlog from "./pages/SubmitBlog";
 import SubmitBlogContest from "./pages/SubmitBlogContest";
+import AllBlogs from "./pages/AllBlogs";
 
 export const DarkModeContext = createContext();
 
@@ -40,10 +41,11 @@ function AppContent() {
             <Route path="/graph-editor" element={<GraphEditor />} />
             <Route path="/calculator" element={<Calculator />} />
             <Route path="/documentation" element={<Documentation />} />
-            <Route path="/createpost" element={<PostCreate />} />
+            {/* <Route path="/createpost" element={<PostCreate />} /> */}
             <Route path="/profile/" element={<Profile />} />
             <Route path="/submit-blog/problem/:problemId" element={<SubmitBlog />} />
             <Route path="/submit-blog/contest/:contestId" element={<SubmitBlogContest />} />
+            <Route path="/allblogs" element={<AllBlogs />} />
             <Route path="*" element={<div>404 Not Found</div>} />
           </Routes>
         </Router>

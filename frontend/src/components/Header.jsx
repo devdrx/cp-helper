@@ -81,6 +81,8 @@ export default function Header() {
         <Link to="/graph-editor" className="font-semibold">Graph Editor</Link>
         <Link to="/calculator" className="font-semibold">Calculator</Link>
         <Link to="/documentation" className="font-semibold">Documentation</Link>
+        <Link to="/allblogs" className="font-semibold">All Blogs</Link>
+
       </nav>
       <div className="flex items-center gap-2">
         <span>Dark Mode</span>
