@@ -11,6 +11,8 @@ import PostCreate from "./pages/PostCreate";
 import Profile from "./pages/Profile";
 import { AuthProvider } from "./context/AuthContext";
 import AutoLogoutWrapper from "./components/AutoLogoutWrapper"; // ✅ wrapper
+// import { CodeforcesContext } from "./context/CodeforcesContext";
+import { CodeforcesProvider } from "./context/CodeforcesContext";
 
 export const DarkModeContext = createContext();
 
@@ -49,7 +51,9 @@ function AppContent() {
 export default function App() {
   return (
     <AuthProvider>
-      <AppContent />
+      <CodeforcesProvider>
+        <AppContent />
+      </CodeforcesProvider>
     </AuthProvider>
   );
 }
