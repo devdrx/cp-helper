@@ -13,6 +13,8 @@ import { AuthProvider } from "./context/AuthContext";
 import AutoLogoutWrapper from "./components/AutoLogoutWrapper"; // ✅ wrapper
 // import { CodeforcesContext } from "./context/CodeforcesContext";
 import { CodeforcesProvider } from "./context/CodeforcesContext";
+import SubmitBlog from "./pages/SubmitBlog";
+import SubmitBlogContest from "./pages/SubmitBlogContest";
 
 export const DarkModeContext = createContext();
 
@@ -40,6 +42,8 @@ function AppContent() {
             <Route path="/documentation" element={<Documentation />} />
             <Route path="/createpost" element={<PostCreate />} />
             <Route path="/profile/" element={<Profile />} />
+            <Route path="/submit-blog/problem/:problemId" element={<SubmitBlog />} />
+            <Route path="/submit-blog/contest/:contestId" element={<SubmitBlogContest />} />
             <Route path="*" element={<div>404 Not Found</div>} />
           </Routes>
         </Router>

@@ -5,13 +5,21 @@ const authMiddleware = require('../middlewares/authcheck'); // import middleware
 
 // Create a new post (🔒 Protected route)
 router.post('/', authMiddleware, async (req, res) => {
-    const { title, content, tags } = req.body;
+    const { title, content, tags, contestID, contestName, problemID, problemName } = req.body;
     try {
         const newPost = new Post({
             by: req.user._id, // Automatically taken from token
             title,
             content,
-            tags
+            tags,
+            contestID,
+            contestName,
+            problemID,
+            problemName,
+            createdAt: new Date(),
+            comments: [],
+            likes: [],
+            dislikes: []
         });
         await newPost.save();
         res.status(201).json(newPost);

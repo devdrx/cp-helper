@@ -202,21 +202,30 @@ export default function MyPostSection({ user, section }) {
                         key={problem.id + "-" + problem.creationTimeSeconds}
                         className="py-3 px-2 hover:bg-gray-100 dark:hover:bg-gray-400 transition rounded cursor-pointer"
                       >
-                        <div className=" font-bold text-gray-900 dark:text-black">
-                          {problem.problem.name}
-                        </div>
-                        <div className="text-sm text-gray-500">
-                          <span className="font-semibold text-black">
-                            Submission Time:
-                          </span>{" "}
-                          {formattedDate}
-                        </div>
-                        <div className="text-sm text-gray-500">
-                          <span className="font-semibold text-black">
-                            Tags:
-                          </span>{" "}
-                          {tags || "No tags available"}
-                        </div>
+                        <Link to={`/submit-blog/problem/${problem.id}`} state={{ problem }}>
+                        
+                          <div className=" font-bold text-gray-900 dark:text-black">
+                            {problem.problem.name}
+                          </div>
+                          <div className="text-sm text-gray-500">
+                            <span className="font-semibold text-black">
+                              Rating:
+                            </span>{" "}
+                            {problem.problem.rating || "No rating available"}
+                          </div>
+                          <div className="text-sm text-gray-500">
+                            <span className="font-semibold text-black">
+                              Submission Time:
+                            </span>{" "}
+                            {formattedDate}
+                          </div>
+                          <div className="text-sm text-gray-500">
+                            <span className="font-semibold text-black">
+                              Tags:
+                            </span>{" "}
+                            {tags || "No tags available"}
+                          </div>
+                        </Link>
                       </li>
                     );
                   })}
