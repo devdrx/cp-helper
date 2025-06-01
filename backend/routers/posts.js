@@ -82,4 +82,62 @@ router.get("/grouped-by-problem", async (req, res) => {
     }
   });
 
+
+  router.put('/like/:id', authMiddleware, async (req, res) => {
+    try {
+      const post = await Post.findById(req.params.id);
+      const userId = req.user.id;
+  
+      if (post.likes.includes(userId)) {
+        post.likes.pull(userId); // Remove like
+      } else {
+        post.likes.push(userId);
+        post.dislikes.pull(userId); // Remove dislike if present
+      }
+  
+      await post.save();
+      res.json(post);
+    } catch (err) {
+      res.status(500).json({ error: 'Failed to like the post' });
+    }
+  });
+  
+  // 👎 Dislike / Undislike
+  router.put('/dislike/:id', authMiddleware, async (req, res) => {
+    try {
+      const post = await Post.findById(req.params.id);
+      const userId = req.user.id;
+  
+      if (post.dislikes.includes(userId)) {
+        post.dislikes.pull(userId); // Remove dislike
+      } else {
+        post.dislikes.push(userId);
+        post.likes.pull(userId); // Remove like if present
+      }
+  
+      await post.save();
+      res.json(post);
+    } catch (err) {
+      res.status(500).json({ error: 'Failed to dislike the post' });
+    }
+  });
+  
+  // 💬 Add Comment
+  router.post('/comment/:id', authMiddleware, async (req, res) => {
+    try {
+      const { content } = req.body;
+      const post = await Post.findById(req.params.id);
+  
+      post.comments.push({
+        by: req.user.id,
+        content,
+      });
+  
+      await post.save();
+      res.json(post);
+    } catch (err) {
+      res.status(500).json({ error: 'Failed to add comment' });
+    }
+  });
+
 module.exports = router;
