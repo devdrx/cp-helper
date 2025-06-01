@@ -18,6 +18,7 @@ export default function SubmitBlog() {
       title,
       content,
       problemName: problem.problem.name,
+      problemIndex: problem.problem.index,
       tags: problem.problem.tags,
       contestID: problem.problem.contestId,
       //   contestName: problem.problem.contestName,

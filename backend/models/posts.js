@@ -6,11 +6,19 @@ const postSchema = new mongoose.Schema({
         ref: 'User',
         required: true,
     },
+    author: {
+        type: String,
+        required: true,
+    },
     problemID:{
         type: String
     },
     problemName: {
         type: String
+    },
+    problemIndex: {
+        type: String, // e.g., "A", "B", "C", etc.
+        required: true, // Assuming problemIndex is always required
     },
     contestID: {
         type: String

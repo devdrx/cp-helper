@@ -51,9 +51,9 @@ export default function AllBlogs() {
                 {group.blogs.map(blog => (
                   <div key={blog._id} className={`${darkMode ? 'bg-gray-800' : 'bg-white'} shadow p-4 rounded-md`}>
                     <h3 className="text-xl font-bold mb-2">{blog.title}</h3>
-                    <p className="text-sm mb-2">by {blog.author?.username || 'Anonymous'}</p>
+                    <p className="text-sm mb-2">by {blog.author || 'Anonymous'}</p>
                     <Link
-                      to={`/blogs/${blog._id}`}
+                      to={`/blog/${blog._id}`}
                       className="text-blue-500 hover:underline text-sm"
                     >
                       Read Blog →

@@ -16,6 +16,7 @@ import { CodeforcesProvider } from "./context/CodeforcesContext";
 import SubmitBlog from "./pages/SubmitBlog";
 import SubmitBlogContest from "./pages/SubmitBlogContest";
 import AllBlogs from "./pages/AllBlogs";
+import BlogDetail from "./pages/BlogDetails";
 
 export const DarkModeContext = createContext();
 
@@ -46,6 +47,7 @@ function AppContent() {
             <Route path="/submit-blog/problem/:problemId" element={<SubmitBlog />} />
             <Route path="/submit-blog/contest/:contestId" element={<SubmitBlogContest />} />
             <Route path="/allblogs" element={<AllBlogs />} />
+            <Route path="/blog/:id" element={<BlogDetail />} />
             <Route path="*" element={<div>404 Not Found</div>} />
           </Routes>
         </Router>

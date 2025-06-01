@@ -6,14 +6,18 @@ const authMiddleware = require('../middlewares/authcheck'); // import middleware
 // Create a new post (🔒 Protected route)
 router.post('/', authMiddleware, async (req, res) => {
     const { title, content, tags, contestID, contestName, problemID, problemName } = req.body;
+    // console.log("Request body:", req.user);
+    // console.log("Request body:", req.user.userName);
     try {
-        const newPost = new Post({
+      const newPost = new Post({
             by: req.user._id, // Automatically taken from token
+            author: req.user.userName, // Automatically taken from token
             title,
             content,
             tags,
             contestID,
             contestName,
+            problemIndex: req.body.problemIndex, // Assuming problemIndex is passed in the request body
             problemID,
             problemName,
             createdAt: new Date(),
@@ -37,6 +41,19 @@ router.get('/', async (req, res) => {
         res.status(500).json({ message: 'Error fetching posts', error });
     }
 });
+
+router.get("/blog/:id", async (req, res) => {
+    try {
+        const post = await Post.findById(req.params.id).populate('by', 'name email');
+        if (!post) {
+            return res.status(404).json({ message: 'Post not found' });
+        }
+        res.status(200).json(post);
+    } catch (error) {
+        res.status(500).json({ message: 'Error fetching post', error });
+    }
+}
+);
 
 router.get("/grouped-by-problem", async (req, res) => {
     try {
