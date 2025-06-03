@@ -107,7 +107,7 @@ export default function BlogDetail() {
   }
 
   return (
-    <div className={`${darkMode ? 'bg-gray-900 text-white' : 'bg-gray-50 text-gray-900'} min-h-screen transition-colors`}>
+    <div className={`${darkMode ? 'bg-gray-900 text-white' : ' text-gray-900'} min-h-screen transition-colors`}>
       <div className="bg-white border rounded-md mt-10 container mx-auto px-6 py-12 max-w-4xl">
         <Link to="/allblogs" className="text-blue-500 hover:underline text-sm">&larr; Back to all blogs</Link>
 
@@ -169,8 +169,8 @@ export default function BlogDetail() {
           <div className="space-y-4">
             {blog.comments.map((comment, index) => (
               <div key={index} className="border-b pb-2">
-                <p className="text-sm font-medium">User: {comment.by}</p>
-                <p className="text-gray-700 dark:text-gray-300">{comment.content}</p>
+                <span className="text-sm ">By:</span> <span className="text-sm font-bold">{comment.by.userName.charAt(0).toUpperCase() + comment.by.userName.slice(1)}</span>
+                <p className="text-gray-7               00">{comment.content}</p>
                 <p className="text-xs text-gray-500 dark:text-gray-400">
                   {formatDistanceToNow(new Date(comment.createdAt), { addSuffix: true })}
                 </p>

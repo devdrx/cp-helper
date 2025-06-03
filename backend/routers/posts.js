@@ -35,7 +35,7 @@ router.post('/', authMiddleware, async (req, res) => {
 // Get all posts (public)
 router.get('/', async (req, res) => {
     try {
-        const posts = await Post.find().populate('by', 'name email');
+        const posts = await Post.find().populate('by', 'userName email');
         res.status(200).json(posts);
     } catch (error) {
         res.status(500).json({ message: 'Error fetching posts', error });
@@ -44,7 +44,9 @@ router.get('/', async (req, res) => {
 
 router.get("/blog/:id", async (req, res) => {
     try {
-        const post = await Post.findById(req.params.id).populate('by', 'name email');
+        const post = await Post.findById(req.params.id).populate('by', 'userName email')          // Populate post author
+        .populate('comments.by', 'userName email') // Populate comment authors
+        .exec();
         if (!post) {
             return res.status(404).json({ message: 'Post not found' });
         }
