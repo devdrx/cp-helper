@@ -106,7 +106,20 @@ export default function MyPostSection({ user, section }) {
                     <div className="font-medium text-gray-900 dark:text-black">
                       {contest.name}
                     </div>
-                    <div className="text-sm text-gray-500">Start Time</div>
+                    <div className="text-sm text-gray-500">
+                     <span className="text-sm text-gray-900"> Start Time:{" "}</span>
+                      {new Date(contest.startTimeSeconds * 1000).toLocaleString(
+                        "en-GB",
+                        {
+                          hour12: false,
+                          hour: "2-digit",
+                          minute: "2-digit",
+                          day: "2-digit",
+                          month: "short",
+                          year: "numeric",
+                        }
+                      )}
+                    </div>
                   </li>
                 ))}
               </ul>
@@ -146,11 +159,24 @@ export default function MyPostSection({ user, section }) {
                     key={contest.id}
                     className="py-3 px-2 hover:bg-gray-100 dark:hover:bg-gray-400 transition rounded cursor-pointer"
                   >
-                    <Link to="/CreatePost">
+                    <Link to={`/submit-blog/contest/${contest.id}`} state={{ contest }}>
                       <div className="font-medium text-gray-900 dark:text-black">
                         {contest.name}
                       </div>
-                      <div className="text-sm text-gray-500">Finished</div>
+                      <div className="text-sm text-gray-500">
+                     <span className="text-sm text-gray-900"> Start Time:{" "}</span>
+                      {new Date(contest.startTimeSeconds * 1000).toLocaleString(
+                        "en-GB",
+                        {
+                          hour12: false,
+                          hour: "2-digit",
+                          minute: "2-digit",
+                          day: "2-digit",
+                          month: "short",
+                          year: "numeric",
+                        }
+                      )}
+                    </div>
                     </Link>
                   </li>
                 ))}
@@ -202,8 +228,10 @@ export default function MyPostSection({ user, section }) {
                         key={problem.id + "-" + problem.creationTimeSeconds}
                         className="py-3 px-2 hover:bg-gray-100 dark:hover:bg-gray-400 transition rounded cursor-pointer"
                       >
-                        <Link to={`/submit-blog/problem/${problem.id}`} state={{ problem }}>
-                        
+                        <Link
+                          to={`/submit-blog/problem/${problem.id}`}
+                          state={{ problem }}
+                        >
                           <div className=" font-bold text-gray-900 dark:text-black">
                             {problem.problem.name}
                           </div>

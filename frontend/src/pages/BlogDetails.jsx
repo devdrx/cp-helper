@@ -118,15 +118,24 @@ export default function BlogDetail() {
         </p>
 
         <div className="mb-6">
-          <p className="text-lg"><strong>Problem:</strong> {blog.problemName} (ContestID {blog.contestID})</p>
-          <a
+          <p className="text-lg"><strong>{blog.type==="problem"?<span>Problem:</span>:<span>Contest:</span>}</strong> {blog.problemName} (ContestID {blog.contestID})</p>
+          {blog.type==="problem" && (<a
             href={`https://codeforces.com/problemset/problem/${blog.contestID}/${blog.problemIndex}`}
             target="_blank"
             rel="noopener noreferrer"
             className="text-blue-500 hover:underline"
           >
             View Problem on Codeforces →
-          </a>
+          </a>)}
+            {blog.type==="contest" && (<a
+            href={`https://codeforces.com/contest/${blog.contestID}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-blue-500 hover:underline"
+            >
+            View Contest on Codeforces →
+            </a>)}
+
         </div>
 
         <div className="bg-gray-50 p-4 prose dark:prose-invert mb-10 mt-6">
@@ -170,7 +179,7 @@ export default function BlogDetail() {
             {blog.comments.map((comment, index) => (
               <div key={index} className="border-b pb-2">
                 <span className="text-sm ">By:</span> <span className="text-sm font-bold">{comment.by.userName.charAt(0).toUpperCase() + comment.by.userName.slice(1)}</span>
-                <p className="text-gray-7               00">{comment.content}</p>
+                <p className="text-gray-700">{comment.content}</p>
                 <p className="text-xs text-gray-500 dark:text-gray-400">
                   {formatDistanceToNow(new Date(comment.createdAt), { addSuffix: true })}
                 </p>

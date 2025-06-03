@@ -17,7 +17,7 @@ export function CodeforcesProvider({ children }) {
         const data = await response.json();
         if (data.status === "OK") {
           setContests(data.result); // full list of contests
-          console.log(contests);
+          console.log(data.result);
         } else {
           throw new Error("Failed to fetch Codeforces contests");
         }

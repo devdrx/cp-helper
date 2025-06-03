@@ -12,6 +12,7 @@ export default function AllBlogs() {
     const fetchGroupedBlogs = async () => {
       try {
         const response = await axios.get('http://localhost:5000/api/posts/grouped-by-problem');
+        console.log(response.data); // Debug log to check the response structure
         setGroupedBlogs(response.data);
       } catch (err) {
         console.error('Failed to fetch blogs:', err);
@@ -45,7 +46,7 @@ export default function AllBlogs() {
           groupedBlogs.map(group => (
             <div key={group._id.problemId} className="mb-12">
               <h2 className="text-2xl font-semibold mb-4 border-b pb-2">
-                {group._id.problemName} 
+                {group._id.problemOrContest} 
               </h2>
               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
                 {group.blogs.map(blog => (

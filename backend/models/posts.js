@@ -7,6 +7,10 @@ const postSchema = new mongoose.Schema({
         ref: 'User',
         required: true,
     },
+    type: {
+        type: String, // e.g., "blog", "tutorial", etc.
+        required: true,
+    },
     author: {
         type: String,
         required: true,
@@ -19,7 +23,7 @@ const postSchema = new mongoose.Schema({
     },
     problemIndex: {
         type: String, // e.g., "A", "B", "C", etc.
-        required: true, // Assuming problemIndex is always required
+        // Assuming problemIndex is always required
     },
     contestID: {
         type: String
@@ -42,21 +46,38 @@ const postSchema = new mongoose.Schema({
     },
     comments: [
         {
-            by: {
+          by: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'User',
+            required: true,
+          },
+          content: {
+            type: String,
+            required: true,
+          },
+          createdAt: {
+            type: Date,
+            default: Date.now,
+          },
+          replies: [
+            {
+              by: {
                 type: mongoose.Schema.Types.ObjectId,
                 ref: 'User',
                 required: true,
-            },
-            content: {
+              },
+              content: {
                 type: String,
                 required: true,
-            },
-            createdAt: {
+              },
+              createdAt: {
                 type: Date,
                 default: Date.now,
+              },
             },
+          ],
         },
-    ],
+      ],      
     likes: [
         {
             type: mongoose.Schema.Types.ObjectId,

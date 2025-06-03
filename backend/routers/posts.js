@@ -15,9 +15,10 @@ router.post('/', authMiddleware, async (req, res) => {
             title,
             content,
             tags,
+            type: req.body.type || 'blog', // Default to 'blog' if not provided
             contestID,
             contestName,
-            problemIndex: req.body.problemIndex, // Assuming problemIndex is passed in the request body
+            problemIndex: req.body.problemIndex,
             problemID,
             problemName,
             createdAt: new Date(),
@@ -58,31 +59,31 @@ router.get("/blog/:id", async (req, res) => {
 );
 
 router.get("/grouped-by-problem", async (req, res) => {
-    try {
-      const groupedBlogs = await Post.aggregate([
-        {
-          $group: {
-            _id: {
-              problemName: "$problemName",
-            //   console.log(problem.problemId),
-            //   name: "$problem.name",
-            //   contestId: "$problem.contestId"
-            },
-            blogs: { $push: "$$ROOT" },
-            count: { $sum: 1 }
-          }
-        },
-        {
-          $sort: { count: -1 } // Optional: sort by number of blogs
+  try {
+    const groupedBlogs = await Post.aggregate([
+      {
+        $group: {
+          _id: {
+            problemOrContest: {
+              $ifNull: ["$problemName", "$contestName"]
+            }
+          },
+          blogs: { $push: "$$ROOT" },
+          count: { $sum: 1 }
         }
-      ]);
-  
-      res.json(groupedBlogs);
-    } catch (err) {
-      console.error(err);
-      res.status(500).json({ message: "Server Error" });
-    }
-  });
+      },
+      {
+        $sort: { count: -1 }
+      }
+    ]);
+
+    res.json(groupedBlogs);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Server Error" });
+  }
+});
+
 
 
   router.put('/like/:id', authMiddleware, async (req, res) => {

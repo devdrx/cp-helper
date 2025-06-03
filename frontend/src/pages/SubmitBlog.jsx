@@ -21,6 +21,7 @@ export default function SubmitBlog() {
       problemIndex: problem.problem.index,
       tags: problem.problem.tags,
       contestID: problem.problem.contestId,
+      type: "problem",
       //   contestName: problem.problem.contestName,
     };
     console.log("Submitting blog data:", blogData);
