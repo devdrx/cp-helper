@@ -8,6 +8,7 @@ import defaultProfilePic from "../assets/defaultProfilePic.webp";
 import PersonalInfoSection from "../components/Profile/PersonalInfoSection";
 import CodeforcesSection from "../components/Profile/CodeforcesSection";
 import MyPostSection from "../components/Profile/MyPostSection";
+import Multiverse from "../components/Profile/Multiverse";
 
 export default function Profile() {
   const { isLoggedIn, logout } = useAuth();
@@ -23,13 +24,16 @@ export default function Profile() {
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const response = await fetch("http://localhost:5000/api/users/userInfo", {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        });
+        const response = await fetch(
+          "http://localhost:5000/api/users/userInfo",
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+          }
+        );
 
         if (response.ok) {
           const data = await response.json();
@@ -73,62 +77,67 @@ export default function Profile() {
     >
       {/* Tabs */}
       <div className="flex bg-gray-200 w-auto self-start gap-4 p-2 rounded-lg mb-4 text-sm font-semibold">
-        {["personal", "codeforces"].map((key) => (
+        {["personal", "codeforces", "multiverse"].map((key) => (
           <span
             key={key}
             className={`cursor-pointer px-2 py-1 rounded ${
-              activeSection === key ? "bg-gray-700 text-white" : "hover:font-bold"
+              activeSection === key
+                ? "bg-gray-700 text-white"
+                : "hover:font-bold"
             }`}
             onClick={() => setActiveSection(key)}
           >
-            {key === "personal" ? "PERSONAL INFO" : "CODEFORCES"}
+            {key === "personal"
+              ? "PERSONAL INFO"
+              : key === "codeforces"
+              ? "CODEFORCES"
+              : "MULTIVERSE"}
           </span>
         ))}
 
         {/* MY POST + Dropdown */}
         {/* MY POST + Dropdown */}
-<div className="relative flex items-center gap-1" ref={dropdownRef}>
-  <span
-    className={`px-2 py-1 rounded ${
-      ["contests", "problems"].includes(activeSection)
-        ? "bg-gray-700 text-white"
-        : ""
+        <div className="relative flex items-center gap-1" ref={dropdownRef}>
+          <span
+            className={`px-2 py-1 rounded ${
+              ["contests", "problems"].includes(activeSection)
+                ? "bg-gray-700 text-white"
+                : ""
+            }`}
+          >
+            MY POST
+          </span>
+          <span
+            className={`cursor-pointer text-xs px-1 
     }`}
-  >
-    MY POST
-  </span>
-  <span
-    className={`cursor-pointer text-xs px-1 
-    }`}
-    onClick={() => setDropdownOpen((prev) => !prev)}
-  >
-    ▼
-  </span>
+            onClick={() => setDropdownOpen((prev) => !prev)}
+          >
+            ▼
+          </span>
 
-  {dropdownOpen && (
-    <div className="absolute top-full left-0 mt-1 flex flex-col bg-white text-black border rounded shadow-md z-10 min-w-[120px]">
-      <span
-        onClick={() => {
-          setActiveSection("contests");
-          setDropdownOpen(false);
-        }}
-        className="px-4 py-2 hover:bg-gray-100 cursor-pointer"
-      >
-        Contests
-      </span>
-      <span
-        onClick={() => {
-          setActiveSection("problems");
-          setDropdownOpen(false);
-        }}
-        className="px-4 py-2 hover:bg-gray-100 cursor-pointer"
-      >
-        Problems
-      </span>
-    </div>
-  )}
-</div>
-
+          {dropdownOpen && (
+            <div className="absolute top-full left-0 mt-1 flex flex-col bg-white text-black border rounded shadow-md z-10 min-w-[120px]">
+              <span
+                onClick={() => {
+                  setActiveSection("contests");
+                  setDropdownOpen(false);
+                }}
+                className="px-4 py-2 hover:bg-gray-100 cursor-pointer"
+              >
+                Contests
+              </span>
+              <span
+                onClick={() => {
+                  setActiveSection("problems");
+                  setDropdownOpen(false);
+                }}
+                className="px-4 py-2 hover:bg-gray-100 cursor-pointer"
+              >
+                Problems
+              </span>
+            </div>
+          )}
+        </div>
       </div>
 
       {/* Content */}
@@ -137,10 +146,21 @@ export default function Profile() {
           <PersonalInfoSection user={user} darkMode={darkMode} />
         )}
         {activeSection === "codeforces" && (
-          <CodeforcesSection user={user} darkMode={darkMode} setUser={setUser} />
+          <CodeforcesSection
+            user={user}
+            darkMode={darkMode}
+            setUser={setUser}
+          />
+        )}
+        {activeSection === "multiverse" && (
+          <Multiverse darkMode={darkMode} setUser={setUser} />
         )}
         {["contests", "problems"].includes(activeSection) && (
-          <MyPostSection user={user} section={activeSection} darkMode={darkMode} />
+          <MyPostSection
+            user={user}
+            section={activeSection}
+            darkMode={darkMode}
+          />
         )}
       </div>
     </div>

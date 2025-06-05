@@ -7,6 +7,7 @@ const PORT = process.env.PORT || 5000;
 
 const userRouter = require('./routers/user');
 const postRouter = require('./routers/posts');
+// const atcoderRouter = require('./routers/atcoder');
 // const dotenv = require('dotenv');
 
 app.use(cors(
@@ -22,6 +23,7 @@ connectDB(mongouri);
 
 app.use('/api/users', userRouter);
 app.use('/api/posts', postRouter);
+// app.use('/api/atcoder-contests', atcoderRouter);
 
 
 app.listen(PORT, () => {

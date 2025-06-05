@@ -7,6 +7,7 @@ export function CodeforcesProvider({ children }) {
   const [contests, setContests] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  
 
   useEffect(() => {
     console.log("CodeforcesProvider mounted"); // Debug log
