@@ -112,7 +112,7 @@ export default function BlogDetail() {
         <Link to="/allblogs" className="text-blue-500 hover:underline text-sm">&larr; Back to all blogs</Link>
 
         <h1 className="text-3xl font-bold mt-4 mb-2">{blog.title}</h1>
-        <p className={`${darkMode ? 'bg-gray-900 text-gray-400' : 'bg-white text-gray-500'} p-1 text-sm  mb-4 `}>
+        <p className={`${darkMode ? 'bg-gray-900 text-gray-400' : ' text-gray-500'} p-1 text-sm  mb-4 `}>
           by <span className="font-medium">{blog.author || 'Anonymous'}</span> •{' '}
           {formatDistanceToNow(new Date(blog.createdAt), { addSuffix: true })}
         </p>
@@ -179,8 +179,8 @@ export default function BlogDetail() {
             {blog.comments.map((comment, index) => (
               <div key={index} className="border-b pb-2">
                 <span className="text-sm ">By:</span> <span className="text-sm font-bold">{comment.by.userName.charAt(0).toUpperCase() + comment.by.userName.slice(1)}</span>
-                <p className="text-gray-700">{comment.content}</p>
-                <p className="text-xs text-gray-500 dark:text-gray-400">
+                <p className={`${darkMode ? ' text-gray-200' : ' text-gray-700'}`}>{comment.content}</p>
+                <p className={`${darkMode ? ' text-gray-400' : ' text-gray-500'} text-xs dark:text-gray-400`}>
                   {formatDistanceToNow(new Date(comment.createdAt), { addSuffix: true })}
                 </p>
               </div>
