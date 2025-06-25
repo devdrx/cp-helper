@@ -25,7 +25,7 @@ export default function Profile() {
     const fetchUser = async () => {
       try {
         const response = await fetch(
-          "http://localhost:5000/api/users/userInfo",
+          "https://cp-helper-i6xy.onrender.com/api/users/userInfo",
           {
             method: "GET",
             headers: {

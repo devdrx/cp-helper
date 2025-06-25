@@ -12,7 +12,7 @@ const postRouter = require('./routers/posts');
 
 app.use(cors(
     {
-        origin: 'http://localhost:5173',
+        origin: ['http://localhost:5173', 'https://cp-helper.vercel.app/'],
         credentials: true,
     }
 ))

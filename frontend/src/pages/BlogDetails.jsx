@@ -14,7 +14,7 @@ export default function BlogDetail() {
 
   const fetchBlog = async () => {
     try {
-      const res = await axios.get(`http://localhost:5000/api/posts/blog/${id}`);
+      const res = await axios.get(`https://cp-helper-i6xy.onrender.com/api/posts/blog/${id}`);
       setBlog(res.data);
     } catch (err) {
       console.error("Failed to fetch blog:", err);
@@ -30,7 +30,7 @@ export default function BlogDetail() {
   const handleLike = async () => {
     try {
       await axios.put(
-        `http://localhost:5000/api/posts/like/${id}`,
+        `https://cp-helper-i6xy.onrender.com/api/posts/like/${id}`,
         {}, // request body (empty in this case)
         {
           headers: {
@@ -48,7 +48,7 @@ export default function BlogDetail() {
 
   const handleDislike = async () => {
     try {
-      await axios.put(`http://localhost:5000/api/posts/dislike/${id}`,
+      await axios.put(`https://cp-helper-i6xy.onrender.com/api/posts/dislike/${id}`,
         {}, // request body (empty in this case)
         {
           headers: {
@@ -69,7 +69,7 @@ export default function BlogDetail() {
   
     try {
       await axios.post(
-        `http://localhost:5000/api/posts/comment/${id}`,
+        `https://cp-helper-i6xy.onrender.com/api/posts/comment/${id}`,
         {
           by: userId,
           content: commentText,

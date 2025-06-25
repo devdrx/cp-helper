@@ -26,7 +26,7 @@ export default function Register() {
       return;
     }
 
-    const response = await fetch("http://localhost:5000/api/users/signup", {
+    const response = await fetch("https://cp-helper-i6xy.onrender.com/api/users/signup", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

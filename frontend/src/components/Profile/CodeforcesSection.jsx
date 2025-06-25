@@ -7,7 +7,7 @@ export default function CodeforcesSection({ user, darkMode, setUser }) {
   const [cfId, setCfId] = useState("");
 
   const handleCfIdSubmit = async () => {
-    const response = await fetch("http://localhost:5000/api/users/linkCfId", {
+    const response = await fetch("https://cp-helper-i6xy.onrender.com/api/users/linkCfId", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

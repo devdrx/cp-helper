@@ -11,7 +11,7 @@ export default function Multiverse({ darkMode }) {
     e.preventDefault();
     setLoading(true);
     try {
-      const res = await fetch('http://localhost:5000/api/users/multiverse', {
+      const res = await fetch('https://cp-helper-i6xy.onrender.com/api/users/multiverse', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

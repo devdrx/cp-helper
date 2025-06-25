@@ -23,7 +23,7 @@ export default function Login() {
   async function handleSubmit(e) {
     e.preventDefault();
     console.log(email, password);
-    const response = await fetch("http://localhost:5000/api/users/login", {
+    const response = await fetch("https://cp-helper-i6xy.onrender.com/api/users/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

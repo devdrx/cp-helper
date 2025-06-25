@@ -11,7 +11,7 @@ export default function AllBlogs() {
   useEffect(() => {
     const fetchGroupedBlogs = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/api/posts/grouped-by-problem');
+        const response = await axios.get('https://cp-helper-i6xy.onrender.com/api/posts/grouped-by-problem');
         console.log(response.data); // Debug log to check the response structure
         setGroupedBlogs(response.data);
       } catch (err) {
