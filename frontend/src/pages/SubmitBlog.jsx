@@ -1,10 +1,13 @@
 import { useParams, useLocation } from "react-router-dom";
 import { useState } from "react";
+import { DarkModeContext } from "../App";
+import { useContext } from "react";
 
 export default function SubmitBlog() {
   const { problemID } = useParams();
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
+  const { darkMode } = useContext(DarkModeContext);
 
   const location = useLocation();
   const problem = location.state?.problem;
@@ -65,7 +68,7 @@ export default function SubmitBlog() {
         <form onSubmit={handleSubmit}>
           <label className="block mb-2 font-semibold ">Title</label>
           <input
-            className="w-full p-2 mb-4 border rounded-md"
+            className={`${darkMode ? 'bg-gray-700 text-white border-gray-600' : 'bg-gray-100 text-black border-gray-300'} w-full p-2 mb-4 border rounded-md"`}
             value={title}
             onChange={(e) => setTitle(e.target.value)}
             required
@@ -73,7 +76,7 @@ export default function SubmitBlog() {
 
           <label className="block mb-2 font-semibold">Content</label>
           <textarea
-            className="w-full p-2 h-80 border rounded-md"
+            className={`${darkMode ? 'bg-gray-700 text-white border-gray-600' : 'bg-gray-100 text-black border-gray-300'} w-full p-2 h-80 border rounded-md`}
             value={content}
             onChange={(e) => setContent(e.target.value)}
             required

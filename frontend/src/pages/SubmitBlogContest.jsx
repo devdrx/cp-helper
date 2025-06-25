@@ -62,7 +62,7 @@ export default function SubmitBlogContest() {
         <form onSubmit={handleSubmit}>
           <label className="block mb-2 font-semibold ">Title</label>
           <input
-            className="w-full p-2 mb-4 border rounded-md"
+            className={`${darkMode ? 'bg-gray-700 text-white border-gray-600' : 'bg-gray-100 text-black border-gray-300'} w-full p-2 mb-4 border rounded-md"`}
             value={title}
             onChange={(e) => setTitle(e.target.value)}
             required
@@ -70,7 +70,7 @@ export default function SubmitBlogContest() {
 
           <label className="block mb-2 font-semibold">Content</label>
           <textarea
-            className="w-full p-2 h-80 border rounded-md"
+            className={`${darkMode ? 'bg-gray-700 text-white border-gray-600' : 'bg-gray-100 text-black border-gray-300'} w-full p-2 h-80 border rounded-md"`}
             value={content}
             onChange={(e) => setContent(e.target.value)}
             required
