@@ -108,11 +108,11 @@ export default function BlogDetail() {
 
   return (
     <div className={`${darkMode ? 'bg-gray-900 text-white' : ' text-gray-900'} min-h-screen transition-colors`}>
-      <div className="bg-white border rounded-md mt-10 container mx-auto px-6 py-12 max-w-4xl">
+      <div className={`${darkMode ? 'bg-gray-900 text-white' : ' text-gray-900'}  border rounded-md mt-10 container mx-auto px-6 py-12 max-w-4xl`}>
         <Link to="/allblogs" className="text-blue-500 hover:underline text-sm">&larr; Back to all blogs</Link>
 
         <h1 className="text-3xl font-bold mt-4 mb-2">{blog.title}</h1>
-        <p className="text-sm text-gray-500 dark:text-gray-400 mb-4">
+        <p className={`${darkMode ? 'bg-gray-900 text-gray-400' : 'bg-white text-gray-500'} p-1 text-sm  mb-4 `}>
           by <span className="font-medium">{blog.author || 'Anonymous'}</span> •{' '}
           {formatDistanceToNow(new Date(blog.createdAt), { addSuffix: true })}
         </p>
@@ -138,7 +138,7 @@ export default function BlogDetail() {
 
         </div>
 
-        <div className="bg-gray-50 p-4 prose dark:prose-invert mb-10 mt-6">
+        <div className={`${darkMode ? 'bg-gray-800' : 'bg-white'}  p-4 prose dark:prose-invert mb-10 mt-6`}>
           <p>{blog.content}</p>
         </div>
 
@@ -165,7 +165,7 @@ export default function BlogDetail() {
 
           <form onSubmit={handleCommentSubmit} className="mb-6">
             <textarea
-              className="text-black w-full p-3 border rounded"
+              className={`${darkMode ? 'bg-gray-800 text-white' : 'bg-white text-gray-500'} text-black w-full p-3 border rounded`}
               placeholder="Write a comment..."
               value={commentText}
               onChange={(e) => setCommentText(e.target.value)}
