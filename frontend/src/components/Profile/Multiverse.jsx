@@ -73,7 +73,7 @@ export default function Multiverse({ darkMode }) {
           </form>
           {loading && <div className="mt-6 text-center">Loading...</div>}
           {stats && !loading && (
-            <div className="mt-6 p-4 bg-green-100 rounded">
+            <div className={`${darkMode ? 'bg-green-500' : 'bg-green-100'} mt-6 p-4  rounded`}>
               <h2 className="text-2xl font-semibold mb-2">Your Stats</h2>
               <p>Total questions solved: {total}</p>
               <ul className="list-disc pl-5">

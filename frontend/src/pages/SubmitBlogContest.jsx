@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { useParams, useLocation } from "react-router-dom";
+import { DarkModeContext } from "../App";
+import { useContext } from "react";
 
 export default function SubmitBlogContest() {
   const { contestId } = useParams();
@@ -7,6 +9,7 @@ export default function SubmitBlogContest() {
   const [content, setContent] = useState("");
   const location = useLocation();
   const contest = location.state?.contest;
+  const { darkMode } = useContext(DarkModeContext);
 
   const handleSubmit = async (e)=> {
     e.preventDefault();
@@ -50,8 +53,8 @@ export default function SubmitBlogContest() {
   }
 
   return (
-    <div className="flex justify-center mt-20 bg-gray-100">
-      <div className="w-[600px] h-fit mx-auto p-6 bg-gray-200 shadow rounded-xl">
+    <div className="flex justify-center mt-20 ">
+      <div className={`${darkMode ? 'bg-gray-800 text-white' : 'bg-gray-50 text-gray-900'} w-[600px] h-fit mx-auto p-6 shadow rounded-xl`}>
         <h2 className="text-xl mb-4">
           Write a Blog for{" "}
           <span className="font-semibold">{contest.name}</span> 

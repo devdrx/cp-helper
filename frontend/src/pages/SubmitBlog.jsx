@@ -56,8 +56,8 @@ export default function SubmitBlog() {
   };
 
   return (
-    <div className="flex justify-center mt-20 bg-gray-100">
-      <div className="w-[600px] h-fit mx-auto p-6 bg-gray-200 shadow rounded-xl">
+    <div className="flex justify-center mt-20 ">
+      <div className={`${darkMode ? 'bg-gray-800 text-white' : 'bg-gray-50 text-gray-900'} w-[600px] h-fit mx-auto p-6  shadow rounded-xl`}>
         <h2 className="text-xl mb-4">
           Write a Blog for{" "}
           <span className="font-semibold">{problem.problem.name}</span> problem

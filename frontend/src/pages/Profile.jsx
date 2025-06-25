@@ -76,7 +76,7 @@ export default function Profile() {
       }`}
     >
       {/* Tabs */}
-      <div className="flex bg-gray-200 w-auto self-start gap-4 p-2 rounded-lg mb-4 text-sm font-semibold">
+      <div className={` ${darkMode ? 'bg-gray-800' : 'bg-gray-200'} flex  w-auto self-start gap-4 p-2 rounded-lg mb-4 text-sm font-semibold`}>
         {["personal", "codeforces", "multiverse"].map((key) => (
           <span
             key={key}

@@ -1,11 +1,15 @@
+import { gray } from "d3";
 import { useCodeforces } from "../../context/CodeforcesContext";
+import { useContext } from "react";
 import { useEffect, useState } from "react";
 import React from "react";
 import { Link } from "react-router-dom";
+import { DarkModeContext } from "../../App";
 
 export default function MyPostSection({ user, section }) {
   const [problems, setProblems] = useState([]);
   const [loadingProblems, setLoadingProblems] = useState(true);
+  const { darkMode } = useContext(DarkModeContext);
 
   // console.log(user);
   useEffect(() => {
@@ -93,7 +97,7 @@ export default function MyPostSection({ user, section }) {
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-32">
             {/* Upcoming Contests */}
-            <div className="h-fit bg-white dark:bg-gray-200 rounded-lg shadow p-4 w-[500px]">
+            <div className={`${darkMode ? 'bg-gray-800 text-white' : 'bg-gray-50 text-gray-900'} h-fit rounded-lg shadow p-4 w-[500px]`}>
               <h3 className="text-lg font-semibold mb-4 text-center">
                 Upcoming Contests
               </h3>
@@ -103,11 +107,11 @@ export default function MyPostSection({ user, section }) {
                     key={contest.id}
                     className="py-3 px-2 hover:bg-gray-100 dark:hover:bg-gray-400 transition rounded cursor-pointer"
                   >
-                    <div className="font-medium text-gray-900 dark:text-black">
+                    <div className="font-medium ">
                       {contest.name}
                     </div>
-                    <div className="text-sm text-gray-500">
-                     <span className="text-sm text-gray-900"> Start Time:{" "}</span>
+                    <div className="text-sm ">
+                     <span className="text-sm "> Start Time:{" "}</span>
                       {new Date(contest.startTimeSeconds * 1000).toLocaleString(
                         "en-GB",
                         {
@@ -149,7 +153,7 @@ export default function MyPostSection({ user, section }) {
             </div>
 
             {/* Finished Contests */}
-            <div className="bg-white dark:bg-gray-200 rounded-lg shadow p-4 w-[500px] h-fit">
+            <div className={`${darkMode ? 'bg-gray-800 text-white' : 'bg-gray-50 text-gray-900'} rounded-lg shadow p-4 w-[500px] h-fit`}>
               <h3 className="text-lg font-semibold mb-4 text-center">
                 Finished Contests
               </h3>
@@ -160,11 +164,11 @@ export default function MyPostSection({ user, section }) {
                     className="py-3 px-2 hover:bg-gray-100 dark:hover:bg-gray-400 transition rounded cursor-pointer"
                   >
                     <Link to={`/submit-blog/contest/${contest.id}`} state={{ contest }}>
-                      <div className="font-medium text-gray-900 dark:text-black">
+                      <div className="font-medium">
                         {contest.name}
                       </div>
-                      <div className="text-sm text-gray-500">
-                     <span className="text-sm text-gray-900"> Start Time:{" "}</span>
+                      <div className="text-sm ">
+                     <span className="text-sm "> Start Time:{" "}</span>
                       {new Date(contest.startTimeSeconds * 1000).toLocaleString(
                         "en-GB",
                         {
@@ -214,7 +218,7 @@ export default function MyPostSection({ user, section }) {
           </h2>
 
           <div className="flex justify-center">
-            <div className="h-fit bg-white dark:bg-gray-200 rounded-lg shadow p-4 w-[500px]">
+            <div className={`${darkMode ? 'bg-gray-800 text-white' : 'bg-gray-50 text-gray-900'} h-fit rounded-lg shadow p-4 w-[500px]`}>
               {loadingProblems ? (
                 <p className="text-center font-semibold">Loading problems...</p>
               ) : (
@@ -232,23 +236,23 @@ export default function MyPostSection({ user, section }) {
                           to={`/submit-blog/problem/${problem.id}`}
                           state={{ problem }}
                         >
-                          <div className=" font-bold text-gray-900 dark:text-black">
+                          <div className=" font-bold">
                             {problem.problem.name}
                           </div>
-                          <div className="text-sm text-gray-500">
-                            <span className="font-semibold text-black">
+                          <div className="text-sm ">
+                            <span className="font-semibold ">
                               Rating:
                             </span>{" "}
                             {problem.problem.rating || "No rating available"}
                           </div>
-                          <div className="text-sm text-gray-500">
-                            <span className="font-semibold text-black">
+                          <div className="text-sm ">
+                            <span className="font-semibold">
                               Submission Time:
                             </span>{" "}
                             {formattedDate}
                           </div>
-                          <div className="text-sm text-gray-500">
-                            <span className="font-semibold text-black">
+                          <div className="text-sm ">
+                            <span className="font-semibold ">
                               Tags:
                             </span>{" "}
                             {tags || "No tags available"}
