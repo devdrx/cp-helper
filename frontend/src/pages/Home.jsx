@@ -76,7 +76,7 @@ export default function Home() {
             <img src="/assets/bolg2.png" alt="Slide 3" className="rounded-xl w-full h-full object-cover" />
           </SwiperSlide>
           <SwiperSlide>
-            <img src="/assets/graph1.png" alt="Slide 3" className="rounded-xl w-full h-full object-cover" />
+            <img src="/assets/graph2.png" alt="Slide 3" className="rounded-xl w-full h-full object-cover" />
           </SwiperSlide>
           <SwiperSlide>
             <img src="/assets/calci.png" alt="Slide 3" className="rounded-xl w-full h-full object-cover" />
