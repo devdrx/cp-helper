@@ -13,7 +13,7 @@ export default function Home() {
   return (
     <div className={`${darkMode ? 'bg-gray-900 text-white' : 'bg-gray-50 text-gray-900'} min-h-screen transition-colors`}>      
       {/* Hero Section */}
-      <header className="container mx-auto px-6 py-16 flex flex-col lg:flex-row items-center justify-center">
+      <header className="container mx-auto px-6 py-16 flex flex-col lg:flex-row items-center justify-center gap-x-36">
         <div className="lg:w-1/2 space-y-6">
           <h1 className="text-4xl lg:text-5xl font-extrabold leading-tight">
             CP Tool: Your Competitive Programming Companion
@@ -97,7 +97,7 @@ export default function Home() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
         <Link to="/calculator" className="border-2 p-2">
           <div className="icon-placeholder">
-            <img src="public/assets/calculator.png" alt="Calculator Icon" className="w-40 h-40 mx-auto" />
+            <img src="/assets/calculator.png" alt="Calculator Icon" className="w-40 h-40 mx-auto" />
           </div>
           <h3 className="text-xl font-semibold mt-4">Calculator</h3>
           <p className="mt-2 text-gray-900 dark:text-gray-400">
@@ -108,7 +108,7 @@ export default function Home() {
 
           <Link to="/graph-editor" className="border-2 p-2">
             <div className="icon-placeholder">
-              <img src="public/assets/graph.png" alt="Graph Icon" className="w-40 h-40 mx-auto" />
+              <img src="/assets/graph.png" alt="Graph Icon" className="w-40 h-40 mx-auto" />
             </div>
             <h3 className="text-xl font-semibold mt-4">Graph Editor</h3>
             <p className="mt-2 text-gray-600 dark:text-gray-400">
@@ -118,7 +118,7 @@ export default function Home() {
 
           <Link to="/documentation" className="border-2 p-2">
             <div className="icon-placeholder">
-              <img src="public/assets/docs.png" alt="Documentation Icon" className="w-40 h-40 mx-auto" />
+              <img src="/assets/docs.png" alt="Documentation Icon" className="w-40 h-40 mx-auto" />
             </div>
             <h3 className="text-xl font-semibold mt-4">Documentation</h3>
             <p className="mt-2 text-gray-600 dark:text-gray-400">
