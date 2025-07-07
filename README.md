@@ -20,11 +20,16 @@ Used by **1,000+ registered users**, CP-Helper offers:
 ## 🚀 Features
 
 ### 🧮 Calculators
+![image](https://github.com/user-attachments/assets/275a9c86-043f-477a-aa22-f6d59a335a59)
+![image](https://github.com/user-attachments/assets/5f914952-f2fe-41f6-8c5f-f7ef68f8b424)
+
 
 * 25+ tools for modular arithmetic, combinatorics, prime checking, and more
 * Optimized for **< 100ms** response time
 
 ### 📊 Graph Simulator
+![image](https://github.com/user-attachments/assets/6b0927ec-b671-4f57-8643-b7db1ebb2ea7)
+
 
 * Interactive visualizer using D3.js
 * Renders **1,000+ data points**
