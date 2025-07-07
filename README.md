@@ -12,6 +12,9 @@ CP-Helper is an all-in-one platform designed for competitive programmers. It pro
 
 Used by **1,000+ registered users**, CP-Helper offers:
 
+![WhatsApp Image 2025-07-07 at 09 04 20_c3dee96a](https://github.com/user-attachments/assets/e8183ca6-5fbe-47ec-b377-67ece15cfcea)
+
+
 * 25+ fast mathematical calculators
 * A dynamic graph simulator
 * Step-by-step competitive programming (CP) guide
