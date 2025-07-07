@@ -37,6 +37,7 @@ Used by **1,000+ registered users**, CP-Helper offers:
 * Maintains **99.5% API success rate**
 
 ### 📘 Beginner’s CP Guide
+![image](https://github.com/user-attachments/assets/fd419e56-3f4e-4066-b633-a823e68bfaea)
 
 * Structured learning path for newcomers
 * Tutorials viewed **2,000+ times**
