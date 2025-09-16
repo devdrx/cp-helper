@@ -104,8 +104,7 @@ npm run test
 
 For questions or suggestions:
 
-* Email: [yourname@example.com](mailto:yourname@example.com)
-* Portfolio: [https://yourwebsite.com](https://yourwebsite.com)
+* Email: [devclasher001@gmail.com](mailto:devclasher001@gmail.com)
 
 ## 📄 License
 
